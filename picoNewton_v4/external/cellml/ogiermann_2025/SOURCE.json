@@ -1,0 +1,20 @@
+{
+  "title": "A Simple Voltage-Modulated Markov Chain Model for the Piezo1 Ion Channel to Investigate Electromechanical Pacing",
+  "cellml_author": "Dennis Ogiermann",
+  "article_doi": "10.1113/JP288666",
+  "physiome_workspace": "https://models.cellml.org/workspace/d20",
+  "physiome_exposure": "https://models.cellml.org/e/d36/view",
+  "workspace_revision": "8465ce0a385cdc40e2f79b001798d600e9f9e4d2",
+  "channel_source_revision": "7cbad662ee7cf9ed5e84b776bf3a6811f0ad1267",
+  "permanent_channel_uri": "https://models.cellml.org/workspace/d20/rawfile/7cbad662ee7cf9ed5e84b776bf3a6811f0ad1267/models/channels/ogiermann_2025_piezo1.cellml",
+  "permanent_units_uri": "https://models.cellml.org/workspace/d20/rawfile/8465ce0a385cdc40e2f79b001798d600e9f9e4d2/units.cellml",
+  "license": "Creative Commons Attribution 3.0 Unported",
+  "license_basis": "The Physiome Model Repository citation instructions state that all publicly accessible repository content is licensed under CC BY 3.0.",
+  "retrieved_utc": "2026-07-17",
+  "citation_instructions": [
+    "Cite the model title and authors.",
+    "Cite DOI 10.1113/JP288666.",
+    "Cite the Physiome exposure URL and retrieval date.",
+    "Preserve attribution and the CC BY 3.0 notice."
+  ]
+}
