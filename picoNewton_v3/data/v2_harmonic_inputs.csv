@@ -1,0 +1,37 @@
+artery_id,artery_name,harmonic,signed_real_coefficient,amplitude,phase_rad,phase_source,is_invented_phase,primary_variability,external_variability_adapter
+aortic_root,Aortic Root,1,1.0,1.0,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+aortic_root,Aortic Root,2,0.82,0.82,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+aortic_root,Aortic Root,3,0.54,0.54,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+aortic_root,Aortic Root,4,0.33,0.33,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+aortic_root,Aortic Root,5,0.24,0.24,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+aortic_root,Aortic Root,6,0.17,0.17,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+thoracic_aorta,Thoracic Aorta,1,1.0,1.0,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+thoracic_aorta,Thoracic Aorta,2,0.76,0.76,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+thoracic_aorta,Thoracic Aorta,3,0.45,0.45,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+thoracic_aorta,Thoracic Aorta,4,0.28,0.28,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+thoracic_aorta,Thoracic Aorta,5,0.2,0.2,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+thoracic_aorta,Thoracic Aorta,6,0.12,0.12,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+femoral,Femoral,1,1.0,1.0,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+femoral,Femoral,2,0.58,0.58,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+femoral,Femoral,3,0.1,0.1,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+femoral,Femoral,4,-0.17,0.17,3.141592653589793,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+femoral,Femoral,5,0.05,0.05,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+femoral,Femoral,6,0.04,0.04,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+carotid,Carotid,1,1.0,1.0,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+carotid,Carotid,2,0.63,0.63,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+carotid,Carotid,3,0.31,0.31,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+carotid,Carotid,4,0.15,0.15,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+carotid,Carotid,5,0.1,0.1,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+carotid,Carotid,6,0.06,0.06,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+iliac,Iliac,1,1.0,1.0,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+iliac,Iliac,2,0.51,0.51,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+iliac,Iliac,3,0.12,0.12,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+iliac,Iliac,4,-0.11,0.11,3.141592653589793,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+iliac,Iliac,5,0.05,0.05,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+iliac,Iliac,6,0.03,0.03,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+brachial,Brachial,1,1.0,1.0,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+brachial,Brachial,2,0.49,0.49,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+brachial,Brachial,3,0.16,0.16,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+brachial,Brachial,4,-0.05,0.05,3.141592653589793,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+brachial,Brachial,5,0.02,0.02,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported
+brachial,Brachial,6,0.01,0.01,0.0,derived exactly from v2 signed real coefficient,False,none; exact v2 preservation,Jones VPD Fourier ensemble when imported

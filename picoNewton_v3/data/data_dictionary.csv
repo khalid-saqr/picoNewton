@@ -1,0 +1,40 @@
+table_or_group,variable,unit,dimensions,description,missing_value_policy
+fields,r_star,1,radial_node,dimensionless radial coordinate,not permitted in completed runs
+fields,time_s,s,time_point,physical time,not permitted in completed runs
+fields,u_z,m/s,"sample,artery,radial_node,time_point",real axial velocity reconstructed before nonlinear products,not permitted in completed runs
+fields,u_theta,m/s,"sample,artery,radial_node,time_point",real azimuthal velocity reconstructed before nonlinear products,not permitted in completed runs
+fields,omega_z,1/s,"sample,artery,radial_node,time_point",real axial vorticity,not permitted in completed runs
+fields,omega_theta,1/s,"sample,artery,radial_node,time_point",real azimuthal vorticity,not permitted in completed runs
+fields,lamb_r,m/s^2,"sample,artery,radial_node,time_point",real radial Lamb-vector component,not permitted in completed runs
+fields,force_density_r,N/m^3,"sample,artery,radial_node,time_point",rho times radial Lamb vector,not permitted in completed runs
+fields,F_L_signed,N,"sample,artery,time_point",signed endothelial control-volume Lamb force,not permitted in completed runs
+fields,F_L_exposure,N,"sample,artery,time_point",magnitude-integrated endothelial force exposure,not permitted in completed runs
+fields,tau_w,Pa,"sample,artery,time_point",axial wall shear stress,not permitted in completed runs
+fields,sensor_p,1,"sample,artery,sensor_hypothesis,time_point",mechanosensor open/active-state probability,not permitted in completed runs
+hydrodynamic_summary.csv,sample_id,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,artery_id,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,solver_mode,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,alpha,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,F_L_signed_mean_N,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,F_L_signed_rms_N,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,F_L_exposure_mean_N,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,F_L_peak_abs_N,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,tau_w_mean_Pa,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,tau_w_rms_Pa,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+hydrodynamic_summary.csv,high_harmonic_power_fraction,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,sample_id,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,artery_id,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,sensor_hypothesis,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,p_mean,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,p_min,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,p_max,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,p_rms,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,peak_phase_cycle,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+sensor_summary.csv,periodic_residual,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,sample_id,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,artery_id,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,signal,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,harmonic,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,amplitude,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,phase_rad,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined
+force_spectra.csv,power,see suffix or companion units registry,row,tidy publication summary field,documented NA only where metric is undefined

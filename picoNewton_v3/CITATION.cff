@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use picoNewton v3, cite the software release and the associated Scientific Reports articles."
+title: "picoNewton v3: mechanosensory observability workflow"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Saqr
+    given-names: Khalid M.
+repository-code: "https://github.com/khalid-saqr/picoNewton"
+license: CC-BY-NC-ND-4.0
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Saqr
+      given-names: Khalid M.
+  title: "A transverse picoNewton force revealed in anisotropic Womersley flow"
+  journal: Scientific Reports
+  year: 2026
+  volume: 16
+  doi: 10.1038/s41598-026-47474-x

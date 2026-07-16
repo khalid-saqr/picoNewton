@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "profile": "publication",
+  "solver_mode": "verified",
+  "radial_order": 150,
+  "time_points": 2048,
+  "quadrature_nodes": 256,
+  "beta": 0.1,
+  "gamma": 0.1,
+  "delta": 1.0,
+  "coupling_lengths_m": [1e-10, 1.778279410038923e-10, 3.1622776601683795e-10, 5.623413251903491e-10, 1e-9, 1.7782794100389228e-9, 3.162277660168379e-9, 5.623413251903491e-9, 1e-8],
+  "relaxation_times_s": [0.001, 0.0031622776601683794, 0.01, 0.03162277660168379, 0.1, 0.31622776601683794, 1.0, 3.1622776601683795, 10.0],
+  "sobol_samples": 4096,
+  "random_seed": 20260716,
+  "run_v2_cold_regression": true,
+  "v2_execution_timeout_s": 1800,
+  "generate_figures": true,
+  "export_hdf5": true,
+  "storage": {
+    "mode": "auto",
+    "drive_subdir": "MyDrive/picoNewton_v3",
+    "local_root": "./picoNewton_v3_outputs"
+  }
+}

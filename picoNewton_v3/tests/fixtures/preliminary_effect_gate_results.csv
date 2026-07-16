@@ -1,0 +1,9 @@
+criterion_id,name,passed,observed
+E1,Core Lamb detectability,False,2/6 arteries at >=60%; overall 0.535
+E2,Held-out WSS nonredundancy,False,"[{'artery_id': 'carotid', 'split': 'held_out', 'rms_residual': 0.0030418270628095314, 'fraction_target_dynamic_range': 0.37810162268139974, 'passes_E2': False}, {'artery_id': 'brachial', 'split': 'held_out', 'rms_residual': 0.0043857801710724875, 'fraction_target_dynamic_range': 0.8996586597269874, 'passes_E2': False}]"
+E3,Contiguous parameter support,True,"{'aortic_root': (True, [(58, np.float64(31.622776601683793), np.float64(10000.0))]), 'brachial': (True, [(27, np.float64(3.162277660168379), np.float64(10000.0))]), 'carotid': (True, [(45, np.float64(10.0), np.float64(10000.0))]), 'femoral': (True, [(45, np.float64(10.0), np.float64(10000.0))]), 'iliac': (True, [(36, np.float64(5.623413251903491), np.float64(10000.0))]), 'thoracic_aorta': (True, [(49, np.float64(17.78279410038923), np.float64(10000.0))])}"
+E4,Directional specificity,True,6/6 arteries at >=60%
+E5,High-harmonic specificity,False,0/6 arteries at >=25%
+E6,Anisotropy-specific detectability,False,0/6 arteries at >=25%
+E7,Robust effect direction,False,5th percentile effect >=0.005 in at least four arteries
+E8,Model-class transparency,True,separate signed/direction/magnitude results generated

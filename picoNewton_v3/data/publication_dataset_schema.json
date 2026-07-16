@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "root": "picoNewton_v3",
+  "folders": {
+    "inputs/raw": "unaltered source inputs or external source pointers",
+    "inputs/curated": "validated SI-unit inputs used by solver",
+    "inputs/manifests": "source, license, checksum and transformation records",
+    "configs": "immutable run configurations",
+    "runs/<run_id>/logs": "machine-readable execution logs",
+    "runs/<run_id>/checkpoints": "resume-safe solver checkpoints",
+    "runs/<run_id>/fields": "multidimensional numerical fields",
+    "runs/<run_id>/spectra": "harmonic amplitudes, phases and powers",
+    "runs/<run_id>/summaries": "tidy artery/scenario summaries",
+    "runs/<run_id>/figures": "automatically generated figures",
+    "runs/<run_id>/provenance": "environment, code and input manifests",
+    "publication_bundle": "archive-ready minimal dataset and figure sources",
+    "cache/external": "optional external datasets; never required unless manifest says so"
+  },
+  "run_manifest_required_fields": [
+    "run_id",
+    "schema_version",
+    "created_utc",
+    "status",
+    "config_sha256",
+    "code_commit",
+    "v2_blob_sha",
+    "solver_mode",
+    "random_seed",
+    "environment",
+    "input_files",
+    "output_files"
+  ],
+  "field_dataset": {
+    "recommended_format": "HDF5 or Zarr in full notebook; compressed NPZ for small tests",
+    "dimensions": [
+      "sample",
+      "artery",
+      "harmonic",
+      "radial_node",
+      "time_point"
+    ],
+    "variables": {
+      "r_star": {"unit": "1", "dims": ["radial_node"]},
+      "time_s": {"unit": "s", "dims": ["time_point"]},
+      "u_z": {"unit": "m/s", "dims": ["sample", "artery", "radial_node", "time_point"]},
+      "u_theta": {"unit": "m/s", "dims": ["sample", "artery", "radial_node", "time_point"]},
+      "omega_z": {"unit": "1/s", "dims": ["sample", "artery", "radial_node", "time_point"]},
+      "omega_theta": {"unit": "1/s", "dims": ["sample", "artery", "radial_node", "time_point"]},
+      "lamb_r": {"unit": "m/s^2", "dims": ["sample", "artery", "radial_node", "time_point"]},
+      "force_density_r": {"unit": "N/m^3", "dims": ["sample", "artery", "radial_node", "time_point"]},
+      "F_L_signed": {"unit": "N", "dims": ["sample", "artery", "time_point"]},
+      "F_L_exposure": {"unit": "N", "dims": ["sample", "artery", "time_point"]},
+      "tau_w": {"unit": "Pa", "dims": ["sample", "artery", "time_point"]},
+      "sensor_p": {"unit": "1", "dims": ["sample", "artery", "sensor_hypothesis", "time_point"]}
+    }
+  },
+  "summary_tables": {
+    "hydrodynamic_summary.csv": ["sample_id", "artery_id", "solver_mode", "alpha", "F_L_signed_mean_N", "F_L_signed_rms_N", "F_L_exposure_mean_N", "F_L_peak_abs_N", "tau_w_mean_Pa", "tau_w_rms_Pa", "high_harmonic_power_fraction"],
+    "sensor_summary.csv": ["sample_id", "artery_id", "sensor_hypothesis", "p_mean", "p_min", "p_max", "p_rms", "peak_phase_cycle", "periodic_residual"],
+    "force_spectra.csv": ["sample_id", "artery_id", "signal", "harmonic", "amplitude", "phase_rad", "power"]
+  },
+  "publication_bundle_required": ["README.md", "data_dictionary.csv", "source_manifest.csv", "run_manifest.json", "configuration.yaml", "hydrodynamic_summary.csv", "sensor_summary.csv", "force_spectra.csv", "figure_source_data/", "checksums.sha256", "environment.json", "code_commit.txt", "data_availability.md", "code_availability.md"]
+}

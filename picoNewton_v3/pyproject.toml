@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "piconewton-v3"
+version = "0.1.0"
+description = "Parametric mechanosensory observability workflow for anisotropic Womersley flow"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Khalid M. Saqr"}]
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pandas>=2.0",
+  "matplotlib>=3.8",
+  "h5py>=3.10",
+  "nbformat>=5.9",
+  "nbclient>=0.9",
+  "threadpoolctl>=3.5"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]

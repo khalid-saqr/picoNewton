@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "profile": "quick",
+  "solver_mode": "verified",
+  "radial_order": 70,
+  "time_points": 256,
+  "quadrature_nodes": 64,
+  "beta": 0.1,
+  "gamma": 0.1,
+  "delta": 1.0,
+  "coupling_lengths_m": [1e-10, 3.1622776601683795e-10, 1e-9, 3.162277660168379e-9, 1e-8],
+  "relaxation_times_s": [0.001, 0.01, 0.1, 1.0, 10.0],
+  "sobol_samples": 64,
+  "random_seed": 20260716,
+  "run_v2_cold_regression": false,
+  "generate_figures": true,
+  "export_hdf5": true,
+  "storage": {
+    "mode": "auto",
+    "drive_subdir": "MyDrive/picoNewton_v3",
+    "local_root": "./picoNewton_v3_outputs"
+  }
+}

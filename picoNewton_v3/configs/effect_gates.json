@@ -1,0 +1,42 @@
+{
+  "numerical_sensor_uncertainty": 0.0001,
+  "E1": {
+    "absolute_rms": 0.005,
+    "minimum_error_multiple": 10.0,
+    "minimum_arteries": 4,
+    "minimum_grid_fraction_per_artery": 0.60,
+    "minimum_overall_fraction": 0.60
+  },
+  "E2": {
+    "absolute_rms": 0.005,
+    "minimum_dynamic_range_fraction": 0.05,
+    "minimum_error_multiple": 10.0,
+    "all_held_out_cases": true
+  },
+  "E3": {
+    "minimum_arteries": 4,
+    "minimum_decade_span": 1.0
+  },
+  "E4": {
+    "absolute_rms": 0.005,
+    "peak_phase_cycle": 0.02,
+    "minimum_arteries": 4,
+    "minimum_grid_fraction_per_artery": 0.60
+  },
+  "E5": {
+    "absolute_rms": 0.002,
+    "relative_change": 0.20,
+    "minimum_arteries": 2,
+    "minimum_grid_fraction_per_artery": 0.25
+  },
+  "E6": {
+    "absolute_rms": 0.002,
+    "minimum_error_multiple": 10.0,
+    "minimum_arteries": 3,
+    "minimum_grid_fraction_per_artery": 0.25
+  },
+  "E7": {
+    "fifth_percentile_absolute_rms": 0.005,
+    "minimum_arteries": 4
+  }
+}
