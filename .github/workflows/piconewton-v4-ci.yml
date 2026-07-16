@@ -1,0 +1,27 @@
+name: picoNewton_v4 scaffold
+
+on:
+  push:
+    paths:
+      - "picoNewton_v4/**"
+      - ".github/workflows/piconewton-v4-ci.yml"
+  pull_request:
+    paths:
+      - "picoNewton_v4/**"
+      - ".github/workflows/piconewton-v4-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e "./picoNewton_v4[dev]"
+      - run: pytest picoNewton_v4/tests
+      - run: piconewton-v4 --repo-root . --smoke
