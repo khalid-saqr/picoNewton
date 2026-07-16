@@ -33,9 +33,6 @@
 > 1. **Published-paper artifacts** — the original `v1` and `v2` notebooks and companion Python source used to develop and report the anisotropic Womersley study.
 > 2. **`picoNewton_v3` research extension** — a tested package and notebook that preserves the published inputs while adding explicit numerical verification, mechanosensory models, physiological coverage, controls, effect gates, and publication-data export.
 
-> [!CAUTION]
-> The endothelial-scale Lamb-force quantity is a control-volume integral of a modeled volumetric inertial field. It is not automatically identical to wall traction, membrane tension, or net radial convective acceleration. `picoNewton_v3` documents these distinctions explicitly and keeps mechanosensory coupling as a testable constitutive hypothesis.
-
 ## Contents
 
 - [Project overview](#project-overview)
@@ -59,7 +56,7 @@
 
 The published study introduced an anisotropic extension of the classical Womersley problem and evaluated the radial component of the Lamb vector,
 
-$ \boldsymbol{\ell} = \mathbf{u}\times\boldsymbol{\omega}, \qquad \boldsymbol{\omega}=\nabla\times\mathbf{u}, $
+$\boldsymbol{\ell} = \mathbf{u}\times\boldsymbol{\omega}, \qquad \boldsymbol{\omega}=\nabla\times\mathbf{u},$
 
 inside an endothelial-scale control volume. The resulting force proxy was found to lie on the picoNewton scale for the modeled arterial conditions.
 
@@ -169,71 +166,71 @@ DOI: [`10.1038/s41598-026-47474-x`](https://doi.org/10.1038/s41598-026-47474-x)
 
 The modeled velocity field is
 
-$ \mathbf{u}(r,t) = u_\theta(r,t)\,\mathbf{e}_\theta + u_z(r,t)\,\mathbf{e}_z, \qquad u_r=0. $
+$\mathbf{u}(r,t) = u_\theta(r,t)\,\mathbf{e}_\theta + u_z(r,t)\,\mathbf{e}_z, \qquad u_r=0.$
 
 The harmonic velocity amplitudes satisfy the nondimensional anisotropic Womersley system
 
-$ i h\alpha^2 U_z^{(h)} = a_h + \mathcal{L}_0 U_z^{(h)} + \beta\,\mathcal{L}_1 U_\theta^{(h)}, $
+$i h\alpha^2 U_z^{(h)} = a_h + \mathcal{L}_0 U_z^{(h)} + \beta\,\mathcal{L}_1 U_\theta^{(h)},$
 
-$ i h\alpha^2 U_\theta^{(h)} = \gamma\,\mathcal{L}_0 U_z^{(h)} + \delta\,\mathcal{L}_1 U_\theta^{(h)}, $
+$i h\alpha^2 U_\theta^{(h)} = \gamma\,\mathcal{L}_0 U_z^{(h)} + \delta\,\mathcal{L}_1 U_\theta^{(h)},$
 
 where
 
-$ \mathcal{L}_0 = \frac{d^2}{dr^{*2}} + \frac{1}{r^*}\frac{d}{dr^*}, $
+$\mathcal{L}_0 = \frac{d^2}{dr^{*2}} + \frac{1}{r^*}\frac{d}{dr^*},$
 
-$ \mathcal{L}_1 = \frac{d^2}{dr^{*2}} + \frac{1}{r^*}\frac{d}{dr^*} - \frac{1}{r^{*2}}, $
+$\mathcal{L}_1 = \frac{d^2}{dr^{*2}} + \frac{1}{r^*}\frac{d}{dr^*} - \frac{1}{r^{*2}},$
 
 and
 
-$ \alpha = R\sqrt{\frac{\omega_0}{\nu_{zz}}}, \qquad \beta=\frac{\nu_{z\theta}}{\nu_{zz}}, \qquad \gamma=\frac{\nu_{\theta z}}{\nu_{zz}}, \qquad \delta=\frac{\nu_{\theta\theta}}{\nu_{zz}}. $
+$\alpha = R\sqrt{\frac{\omega_0}{\nu_{zz}}}, \qquad \beta=\frac{\nu_{z\theta}}{\nu_{zz}}, \qquad \gamma=\frac{\nu_{\theta z}}{\nu_{zz}}, \qquad \delta=\frac{\nu_{\theta\theta}}{\nu_{zz}}.$
 
 The isotropic limit is
 
-$ \beta=0, \qquad \gamma=0, \qquad \delta=1. $
+$\beta=0, \qquad \gamma=0, \qquad \delta=1.$
 
 ### Boundary conditions
 
 At the centerline,
 
-$ \left.\frac{dU_z^{(h)}}{dr^*}\right|_{r^*=0}=0, \qquad U_\theta^{(h)}(0)=0. $
+$\left.\frac{dU_z^{(h)}}{dr^*}\right|_{r^*=0}=0, \qquad U_\theta^{(h)}(0)=0.$
 
 At the arterial wall,
 
-$ U_z^{(h)}(1)=0, \qquad U_\theta^{(h)}(1)=0. $
+$U_z^{(h)}(1)=0, \qquad U_\theta^{(h)}(1)=0.$
 
 ### Vorticity and radial Lamb vector
 
 For the present velocity field,
 
-$ \omega_\theta = -\frac{\partial u_z}{\partial r}, $
+$\omega_\theta = -\frac{\partial u_z}{\partial r},$
 
-$ \omega_z = \frac{1}{r}\frac{\partial(ru_\theta)}{\partial r}. $
+$\omega_z = \frac{1}{r}\frac{\partial(ru_\theta)}{\partial r}.$
 
 The radial Lamb-vector component is
 
-$ \ell_r = u_\theta\omega_z-u_z\omega_\theta. $
+$\ell_r = u_\theta\omega_z-u_z\omega_\theta.$
 
 Because this quantity is nonlinear, the verified v3 workflow reconstructs the real physical fields before multiplication:
 
-$ u_j(r,t) = \Re\left[ \sum_{h=1}^{H} U_j^{(h)}(r)e^{ih\omega_0t} \right]. $
+$u_j(r,t) = \Re\left[ \sum_{h=1}^{H} U_j^{(h)}(r)e^{ih\omega_0t} \right].$
 
 ### Endothelial-scale control-volume quantity
 
 The modeled signed force is
 
-$ F_L(t) = \int_{V_{\mathrm{EC}}} \rho\,\ell_r(\mathbf{x},t)\,dV. $
+$F_L(t) = \int_{V_{\mathrm{EC}}} \rho\,\ell_r(\mathbf{x},t)\,dV.$
 
 Under the thin near-wall pillbox approximation,
 
-$ F_L(t) \approx A_{\mathrm{EC}} \int_{R-\delta_{\mathrm{EC}}}^{R} \rho\,\ell_r(r,t)\,dr, $
+$F_L(t) \approx A_{\mathrm{EC}} \int_{R-\delta_{\mathrm{EC}}}^{R} \rho\,\ell_r(r,t)\,dr,$
 
 with
 
-$ \delta_{\mathrm{EC}} = \frac{V_{\mathrm{EC}}}{A_{\mathrm{EC}}}. $
+$\delta_{\mathrm{EC}} = \frac{V_{\mathrm{EC}}}{A_{\mathrm{EC}}}.$
 
 The published baseline geometry uses
 
-$ A_{\mathrm{EC}}=100\times10^{-12}\ \mathrm{m^2}, \qquad V_{\mathrm{EC}}=10^{-15}\ \mathrm{m^3}. $
+$A_{\mathrm{EC}}=100\times10^{-12}\ \mathrm{m^2}, \qquad V_{\mathrm{EC}}=10^{-15}\ \mathrm{m^3}.$
 
 ---
 
@@ -241,19 +238,19 @@ $ A_{\mathrm{EC}}=100\times10^{-12}\ \mathrm{m^2}, \qquad V_{\mathrm{EC}}=10^{-1
 
 The Gromeka–Lamb identity is
 
-$ (\mathbf{u}\cdot\nabla)\mathbf{u} = \nabla\left(\frac{|\mathbf{u}|^2}{2}\right) - \mathbf{u}\times\boldsymbol{\omega}. $
+$(\mathbf{u}\cdot\nabla)\mathbf{u} = \nabla\left(\frac{|\mathbf{u}|^2}{2}\right) - \mathbf{u}\times\boldsymbol{\omega}.$
 
 For
 
-$ \mathbf{u} = (0,u_\theta,u_z), $
+$\mathbf{u} = (0,u_\theta,u_z),$
 
 the radial convective acceleration is
 
-$ \left[(\mathbf{u}\cdot\nabla)\mathbf{u}\right]_r = -\frac{u_\theta^2}{r}. $
+$\left[(\mathbf{u}\cdot\nabla)\mathbf{u}\right]_r = -\frac{u_\theta^2}{r}.$
 
 Meanwhile,
 
-$ \ell_r = u_z\frac{\partial u_z}{\partial r} + u_\theta\frac{\partial u_\theta}{\partial r} + \frac{u_\theta^2}{r}. $
+$\ell_r = u_z\frac{\partial u_z}{\partial r} + u_\theta\frac{\partial u_\theta}{\partial r} + \frac{u_\theta^2}{r}.$
 
 Therefore, the Lamb-vector term and the radial kinetic-energy gradient must be interpreted together when reconstructing the complete convective acceleration.
 
@@ -261,11 +258,11 @@ Therefore, the Lamb-vector term and the radial kinetic-energy gradient must be i
 
 | Quantity | Definition | Units | Interpretation |
 |---|---|---:|---|
-| Lamb vector | $\boldsymbol{\ell}=\mathbf{u}\times\boldsymbol{\omega}$ | $\mathrm{m\,s^{-2}}$ | Local velocity-vorticity inertial field |
-| Volumetric force density | $\rho\boldsymbol{\ell}$ | $\mathrm{N\,m^{-3}}$ | Density-scaled modeled inertial field |
-| Control-volume force | $\int_V\rho\boldsymbol{\ell}\,dV$ | N | Integrated force proxy over a defined volume |
-| Cauchy traction | $\mathbf{t}=\boldsymbol{\sigma}\mathbf{n}$ | Pa | Actual surface traction on a boundary |
-| Radial convective acceleration | $-u_\theta^2/r$ | $\mathrm{m\,s^{-2}}$ | Net radial component of $(\mathbf{u}\cdot\nabla)\mathbf{u}$ |
+| Lamb vector |$\boldsymbol{\ell}=\mathbf{u}\times\boldsymbol{\omega}$|$\mathrm{m\,s^{-2}}$| Local velocity-vorticity inertial field |
+| Volumetric force density |$\rho\boldsymbol{\ell}$|$\mathrm{N\,m^{-3}}$| Density-scaled modeled inertial field |
+| Control-volume force |$\int_V\rho\boldsymbol{\ell}\,dV$| N | Integrated force proxy over a defined volume |
+| Cauchy traction |$\mathbf{t}=\boldsymbol{\sigma}\mathbf{n}$| Pa | Actual surface traction on a boundary |
+| Radial convective acceleration |$-u_\theta^2/r$|$\mathrm{m\,s^{-2}}$| Net radial component of$(\mathbf{u}\cdot\nabla)\mathbf{u}$|
 
 > [!NOTE]
 > The repository preserves the published Lamb-force formulation while `picoNewton_v3` makes the interpretation boundary explicit. Mechanosensory coupling is modeled through a generalized work coordinate and is not presented as an experimentally identified receptor mechanism.
@@ -292,19 +289,19 @@ The v3 package is located in [`picoNewton_v3/`](picoNewton_v3/).
 
 The minimal force-gated model is
 
-$ C \underset{k_-(\Psi)}{\stackrel{k_+(\Psi)}{\rightleftharpoons}} O, \qquad p(t)=\Pr(O), $
+$C \underset{k_-(\Psi)}{\stackrel{k_+(\Psi)}{\rightleftharpoons}} O, \qquad p(t)=\Pr(O),$
 
 with
 
-$ \frac{dp}{dt} = k_+(\Psi)(1-p)-k_-(\Psi)p. $
+$\frac{dp}{dt} = k_+(\Psi)(1-p)-k_-(\Psi)p.$
 
 The Lamb-force work coordinate is
 
-$ \Psi_L(t) = \frac{d_L}{k_BT}\, \mathcal{G}_L[F_L(t)], $
+$\Psi_L(t) = \frac{d_L}{k_BT}\, \mathcal{G}_L[F_L(t)],$
 
 while the WSS channel uses a distinct conjugate activation volume,
 
-$ \Psi_\tau(t) = \frac{V_\tau}{k_BT}\, \mathcal{G}_\tau[\tau_w(t)]. $
+$\Psi_\tau(t) = \frac{V_\tau}{k_BT}\, \mathcal{G}_\tau[\tau_w(t)].$
 
 The package supports signed, reversed-direction, magnitude-sensitive, inward-only, and outward-only Lamb-force hypotheses. These are reported as separate model classes.
 
