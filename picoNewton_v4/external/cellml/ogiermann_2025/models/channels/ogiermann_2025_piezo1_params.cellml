@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="ogiermann_2025_piezo1_params" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../../units.cellml">
+        <units name="per_ms" units_ref="per_ms"/>
+    </import>
+    <component name="parameters">
+        <variable initial_value="0.02634342" name="r1" public_interface="out" units="per_ms"/>
+        <variable initial_value="0.0008000712" name="r3" public_interface="out" units="per_ms"/>
+        <variable initial_value="0.008945307" name="r4" public_interface="out" units="per_ms"/>
+        <variable initial_value="1.3529515e-5" name="r5" public_interface="out" units="per_ms"/>
+        <variable initial_value="6.206403e-5" name="r6" public_interface="out" units="per_ms"/>
+        <variable initial_value="6.603723e-6" name="r7" public_interface="out" units="per_ms"/>
+        <variable initial_value="0.00079357607" name="r8" public_interface="out" units="per_ms"/>
+        <variable initial_value="-2.3753126" name="ce1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="-5.6010337" name="ce3" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.70629007" name="ce4" public_interface="out" units="dimensionless"/>
+        <variable initial_value="-12.101605" name="cm4" public_interface="out" units="dimensionless"/>
+        <variable initial_value="6.46389" name="ce5" public_interface="out" units="dimensionless"/>
+        <variable initial_value="-1.2173947" name="ce6" public_interface="out" units="dimensionless"/>
+        <variable initial_value="8.739162" name="ce7" public_interface="out" units="dimensionless"/>
+        <variable initial_value="-3.364573" name="ce8" public_interface="out" units="dimensionless"/>
+        <variable name="r2" public_interface="out" units="per_ms"/>
+        <variable name="ce2" public_interface="out" units="dimensionless"/>
+        <variable name="cm2" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><eq/><ci>r2</ci><apply><divide/><apply><times/><ci>r1</ci><ci>r3</ci><ci>r5</ci></apply><apply><times/><ci>r4</ci><ci>r6</ci></apply></apply></apply>
+            <apply><eq/><ci>ce2</ci><apply><minus/><apply><minus/><apply><plus/><ci>ce1</ci><ci>ce3</ci><ci>ce5</ci></apply><ci>ce4</ci></apply><ci>ce6</ci></apply></apply>
+            <apply><eq/><ci>cm2</ci><apply><minus/><ci>cm4</ci></apply></apply>
+        </math>
+    </component>
+</model>
