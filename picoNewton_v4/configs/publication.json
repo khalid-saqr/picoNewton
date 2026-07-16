@@ -1,0 +1,7 @@
+{
+  "profile": "publication",
+  "runtime": {"storage": "google_drive", "local_compute_root": "/content/piconewton_v4_runtime"},
+  "hydrodynamics": {"radial_order": 150, "time_points": 2048, "near_wall_nodes": 256},
+  "uncertainty": {"samples": 4096, "seed": 20260717},
+  "claims_enabled": true
+}

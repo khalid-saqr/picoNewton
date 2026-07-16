@@ -1,0 +1,12 @@
+layer,parameter,fixed_value,lower,upper,unit,source,use_and_limitation
+hydrodynamics,beta,,-0.1,0.1,dimensionless,Saqr 2026,ground-truth envelope
+hydrodynamics,gamma,,-0.1,0.1,dimensionless,Saqr 2026,ground-truth envelope
+hydrodynamics,delta,,0.9,1.1,dimensionless,Saqr 2026,isotropic value 1
+membrane_cortex,effective_modulus_primary,,0.5,5.0,kPa,Vargas-Pinto 2013 and Jannatbabaei 2019,engineering envelope
+membrane_cortex,cortex_thickness_primary,,0.20,0.50,um,Vargas-Pinto 2013,engineering envelope
+membrane_cortex,apparent_viscosity_primary,,200,1100,Pa*s,Jannatbabaei 2019,engineering envelope
+membrane_cortex,relaxation_time_primary,,0.10,0.50,s,derived eta/E,labelled inference
+piezo1,gradmu_baseline,-40,,,mV,HUVEC electrophysiology,primary condition
+piezo1,gradmu_sensitivity,,-65,-19,mV,HUVEC electrophysiology,secondary sensitivity
+piezo1,equivalent_pressure_primary,,0,30,mmHg,Piezo1 pressure literature,not endothelial hydrostatic pressure
+piezo1,equivalent_pressure_source_verification,,0,70,mmHg,Ogiermann model,source reproduction only

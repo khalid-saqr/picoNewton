@@ -1,0 +1,6 @@
+asset_id,asset_type,title,source,version_or_revision,license,status
+GT-PAPER-PDF,ground_truth_article,A transverse picoNewton force revealed in anisotropic Womersley flow,10.1038/s41598-026-47474-x,Scientific Reports 16:12584,CC BY 4.0,PASS
+GT-V2-NOTEBOOK,published_code_artifact,picoNewton_v2.ipynb,khalid-saqr/picoNewton,9d61c237cda75df338ce0383038f7765c886f503,repository license,CONDITIONAL
+PZ1-ARTICLE,source_model_article,A Simple Voltage-Modulated Markov Chain Model for the Piezo1 Ion Channel to Investigate Electromechanical Pacing,10.1113/JP288666,2025 article,citation,PASS
+PZ1-CELLML,CellML_source_model,ogiermann_2025_piezo1.cellml,https://models.cellml.org/workspace/d20,7cbad662ee7cf9ed5e84b776bf3a6811f0ad1267,CC BY 3.0,PASS
+PZ1-UNITS,CellML_units,units.cellml,https://models.cellml.org/workspace/d20,8465ce0a385cdc40e2f79b001798d600e9f9e4d2,CC BY 3.0,PASS

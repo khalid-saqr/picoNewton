@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: picoNewton_v4
+type: software
+message: Cite the published Scientific Reports article, the v4 repository commit, and the Ogiermann et al. Piezo1 model.
+authors:
+  - family-names: Saqr
+    given-names: Khalid M.
+version: 0.1.0-dev
+date-released: 2026-07-17
+repository-code: https://github.com/khalid-saqr/picoNewton
+references:
+  - type: article
+    title: A transverse picoNewton force revealed in anisotropic Womersley flow
+    doi: 10.1038/s41598-026-47474-x
+  - type: article
+    title: A Simple Voltage-Modulated Markov Chain Model for the Piezo1 Ion Channel to Investigate Electromechanical Pacing
+    doi: 10.1113/JP288666

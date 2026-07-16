@@ -1,0 +1,96 @@
+protocol:
+  name: picoNewton_v4 physical-interface and Piezo1 observability protocol
+  version: 1.0.0-step1
+  status: scientific_scope_frozen
+  date_utc: '2026-07-17'
+  package: picoNewton_v4
+  primary_notebook: picoNewton_v4/notebooks/picoNewton_v4_colab.ipynb
+  standalone_requirement: true
+  runtime_dependency_on_v3: false
+scientific_objective: >-
+  Develop and validate a reduced-order physical interface that determines whether
+  anisotropic near-wall forcing and WSS produce distinguishable endothelial membrane
+  loading and Piezo1 gating across six arterial waveforms.
+arteries:
+  - Aortic Root
+  - Thoracic Aorta
+  - Femoral
+  - Carotid
+  - Iliac
+  - Brachial
+analysis_layers:
+  - hydrodynamic waveform
+  - common membrane-mechanics state
+  - Piezo1 gating response
+primary_interface:
+  class: standard_linear_solid_membrane_cortex
+  elastic_model_role: limiting_case
+  alternative_equal_status_interfaces_allowed: false
+wss_surrogates:
+  - id: S0
+    name: instantaneous_affine
+  - id: S1
+    name: lagged_affine
+  - id: S2
+    name: lagged_first_order_filter
+model_selection:
+  training: leave-one-artery-out
+  testing: held-out sixth artery
+  post_result_surrogate_addition: prohibited
+hypotheses:
+  H1:
+    name: hydrodynamic_shape_nonredundancy
+    minimum_lower_90ci_residual_fraction: 0.10
+    minimum_arteries: 4
+  H2:
+    name: membrane_load_nonredundancy
+    minimum_lower_90ci_dynamic_range_fraction: 0.05
+    minimum_arteries: 4
+  H3:
+    name: piezo1_response_nonredundancy
+    minimum_absolute_rms_probability: 0.005
+    minimum_lower_90ci_dynamic_range_fraction: 0.05
+    minimum_arteries: 4
+  H4:
+    name: anisotropy_specific_piezo1_contribution
+    minimum_absolute_rms_probability: 0.002
+    minimum_dynamic_range_fraction: 0.05
+    minimum_arteries: 3
+  H5:
+    name: higher_harmonic_preservation
+    minimum_absolute_rms_probability: 0.002
+    minimum_relative_effect: 0.20
+    minimum_arteries: 2
+  H6:
+    name: artery_specificity
+    minimum_between_artery_variance_fraction: 0.20
+    rank_stability_required: true
+  H7:
+    name: interface_robustness
+    minimum_arteries: 4
+    minimum_parameter_domain_fraction_each_interface: 0.50
+    connected_parameter_region_required: true
+controls:
+  - C0_zero_input
+  - C1_piezo1_source_positive_control
+  - C2_wss_only
+  - C3_total_piconewton_force_only
+  - C4_combined_wss_and_force
+  - C5_isotropic_lamb_baseline
+  - C6_anisotropy_specific_increment
+  - C7_fundamental_only
+  - C8_harmonics_h_le_2
+  - C9_full_harmonic_waveform
+  - C10_phase_randomized
+  - C11_direction_reversed
+  - C12_elastic_interface_limit
+  - C13_zero_force_to_membrane_coupling
+  - C14_published_hydrodynamic_reproduction
+claim_classes:
+  - robustly_nonredundant
+  - interface_dependent
+  - parameter_conditional
+  - wss_redundant
+  - below_detectability
+amendment_policy:
+  after_publication_run: hypotheses_gates_endpoints_surrogates_and_claim_rules_are_immutable

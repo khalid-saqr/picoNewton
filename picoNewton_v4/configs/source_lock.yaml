@@ -1,0 +1,25 @@
+step: 2
+name: sources_licenses_and_provenance
+date_utc: '2026-07-17'
+status: PASS_FOR_STEP3
+license_resolution:
+  physiome_public_content: Creative Commons Attribution 3.0 Unported
+  original_cellml_committed: true
+ground_truth:
+  article_doi: 10.1038/s41598-026-47474-x
+  article_sha256: a77c5d76e3c7b200be453f66f854b16739d6360ab70688e0eb208084353020f0
+  v2_git_blob_sha1: 9d61c237cda75df338ce0383038f7765c886f503
+piezo1:
+  article_doi: 10.1113/JP288666
+  exposure: https://models.cellml.org/e/d36/view
+  workspace_revision: 8465ce0a385cdc40e2f79b001798d600e9f9e4d2
+  channel_revision: 7cbad662ee7cf9ed5e84b776bf3a6811f0ad1267
+  source_license: CC BY 3.0 Unported
+  reference_figures: [3, 4, 5]
+  source_execution_environment: OpenCOR
+release_decisions:
+  step3_package_scaffolding: GO
+  hydrodynamic_implementation: GO
+  piezo1_equation_implementation: GO
+  source_model_reproduction: REQUIRED_BEFORE_COUPLING
+  direct_force_to_pressure_substitution: PROHIBITED

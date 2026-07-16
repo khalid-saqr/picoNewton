@@ -1,0 +1,20 @@
+{
+  "source": {
+    "article_doi": "10.1113/JP288666",
+    "workspace_revision": "8465ce0a385cdc40e2f79b001798d600e9f9e4d2",
+    "channel_revision": "7cbad662ee7cf9ed5e84b776bf3a6811f0ad1267",
+    "license": "CC BY 3.0 Unported"
+  },
+  "states": ["P_Open", "P_Closed", "P_I1", "P_I2"],
+  "initial_state": {"P_Open": 0.0, "P_Closed": 0.3, "P_I1": 0.1, "P_I2": 0.6},
+  "inputs": {"pressure": {"unit": "mmHg", "normalization": 70.0}, "gradmu": {"unit": "mV", "normalization": 140.0}, "time": {"unit": "ms"}},
+  "parameters": {
+    "r1": 0.02634342, "r3": 0.0008000712, "r4": 0.008945307,
+    "r5": 1.3529515e-5, "r6": 6.206403e-5, "r7": 6.603723e-6,
+    "r8": 0.00079357607, "ce1": -2.3753126, "ce3": -5.6010337,
+    "ce4": 0.70629007, "cm4": -12.101605, "ce5": 6.46389,
+    "ce6": -1.2173947, "ce7": 8.739162, "ce8": -3.364573
+  },
+  "constraints": {"r2": "r1*r3*r5/(r4*r6)", "ce2": "ce1+ce3+ce5-ce4-ce6", "cm2": "-cm4"},
+  "reference_figures": [3, 4, 5]
+}
