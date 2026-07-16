@@ -1,0 +1,10 @@
+parameter,baseline,primary_min,primary_max,extended_min,extended_max,unit,range_class
+heart_rate_bpm,72.0,60.0,100.0,40.0,120.0,beats/min,clinical reference plus extended sensitivity
+rho_kg_m3,1060.0,1040.0,1080.0,1025.0,1100.0,kg/m^3,literature-standard modeling envelope
+mu_Pa_s,0.0037099999999999998,0.003,0.004,0.0025,0.006,Pa s,high-shear whole-blood range plus extended rheology sensitivity
+beta,0.1,-0.1,0.1,-0.2,0.2,1,published physiological range plus extended sensitivity
+gamma,0.1,-0.1,0.1,-0.2,0.2,1,published physiological range plus extended sensitivity
+delta,1.0,0.9,1.1,0.8,1.2,1,published physiological range plus extended sensitivity
+A_EC_m2,1e-10,1e-10,1e-10,5e-11,2e-10,m^2,published model value; geometry uncertainty only in sensitivity
+V_EC_m3,1e-15,1e-15,1e-15,5e-16,2e-15,m^3,published model value; geometry uncertainty only in sensitivity
+G0_scale,1.0,1.0,1.0,0.6,1.4,1,v2-preserving primary; hemodynamic sensitivity only

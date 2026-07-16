@@ -1,0 +1,17 @@
+parameter,distribution,baseline,lower,upper,interpretation,family
+artery_id,categorical stratification,six fixed sites,,,Not pooled as a probability distribution,coverage
+radius_m,uniform within site envelope,,site-specific min,site-specific max,Coverage distribution; not population prevalence,hydrodynamic
+heart_rate_bpm,uniform,72.0,60.0,100.0,Primary resting-adult coverage,hydrodynamic
+rho_kg_m3,uniform,1060.0,1040.0,1080.0,Modeling envelope,hydrodynamic
+mu_Pa_s,uniform,0.00371,0.003,0.004,High-shear primary range,hydrodynamic
+beta,uniform,0.1,-0.1,0.1,Primary symmetric analysis sets gamma=beta,constitutive
+gamma,conditional,0.1,-0.1,0.1,gamma=beta primary; independent only in asymmetry sensitivity,constitutive
+delta,uniform,1.0,0.9,1.1,Must satisfy dissipation constraint,constitutive
+G0_scale,fixed primary,1.0,1.0,1.0,0.6-1.4 only in extended sensitivity,hydrodynamic
+p0,log-uniform,0.01,0.0001,0.2,Epistemic sensor uncertainty,sensor
+tau0_s,log-uniform,0.1,0.001,10.0,Epistemic sensor uncertainty,sensor
+theta,uniform,0.5,0.25,0.75,Transition-state uncertainty,sensor
+dL_m,log-uniform,1e-09,1e-10,1e-08,Hypothesized Lamb coupling length,sensor
+Vtau_m3,log-uniform,1e-22,1e-24,1e-20,Effective WSS activation volume,sensor
+temperature_K,uniform sensitivity,310.15,305.0,315.0,Fixed 310.15 K in primary maps,physical
+sensor_direction,separate categorical analyses,,-1,+1,Never averaged across incompatible models,model_class

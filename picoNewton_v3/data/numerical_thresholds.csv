@@ -1,0 +1,11 @@
+test,metric,threshold,application,decision
+isotropic_analytic,Linf absolute velocity error,1e-08,all alpha anchors,Hard fail
+spatial_velocity,relative L2 versus N=180,0.0001,"N=150, all alpha/h anchors",Hard fail
+spatial_vorticity,relative L2 versus N=180,0.0005,"N=150, all alpha/h anchors",Hard fail
+time_force,relative L2 versus nt=4096,0.0001,"nt=2048, representative arteries",Hard fail
+time_peak,relative peak-force error,0.001,nt=2048,Hard fail
+quadrature_force,relative L2 versus 512 nodes,0.0001,256 nodes,Hard fail
+spectral_aliasing,power fraction above h=12,1e-12,nt>=128,Hard fail
+sensor_waveform,absolute Linf versus nt=4096,0.0001,"nt=2048, all speed anchors",Hard fail
+periodic_state,cycle closure residual,1e-10,exact periodic initialization,Hard fail
+numerical_error_budget,numerical uncertainty / claimed effect,0.1,every primary effect,Hard fail

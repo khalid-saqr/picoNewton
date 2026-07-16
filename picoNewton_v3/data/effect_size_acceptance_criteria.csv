@@ -1,0 +1,10 @@
+criterion_id,claim,quantitative_gate,robustness_gate,status
+E1,Core Lamb-channel detectability,RMS(p_parallel-p_WSS) >= 0.005 and >=10x numerical uncertainty,at least 4 of 6 arteries and >=60% of primary coverage samples,Required for manuscript
+E2,WSS nonredundancy,best-fit WSS surrogate residual >=0.005 absolute RMS and >=5% of reference dynamic range,held-out cases; residual >=10x numerical uncertainty,Required for primary claim
+E3,Contiguous parameter support,E1 occupies connected region spanning >=1 decade in tau0 or dL,not isolated tuned point,Required for manuscript
+E4,Directional specificity,signed +1 and -1 differ materially,>=0.005 RMS or >=0.02 cycle phase,Only for direction claim
+E5,High-harmonic specificity,removing h>=3 changes Lamb-attributable sensor RMS by >=20% and >=0.002 absolute,>=2 arteries and contiguous sensor region,Only for spectral claim
+E6,Anisotropy-specific detectability,RMS(p_total_aniso-p_isotropic) >=0.002 and >=10x numerical uncertainty,>=3 arteries or >=25% coverage samples,Only for anisotropy-specific claim
+E7,Robust effect direction,median effect same sign and 90% coverage interval excludes zero,within each claimed artery/model class,Required for quantitative claim
+E8,Model-class transparency,"signed, magnitude, inward-only and outward-only reported separately",no averaging,Required
+E9,No-go condition,"effect only after arbitrary tuning, isolated point, or <=10x numerical error",any occurrence,Stops claim

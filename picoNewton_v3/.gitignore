@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+picoNewton_v3_outputs/
+publication_outputs/
+*.h5
+*.zarr/
+*.parquet
+.DS_Store

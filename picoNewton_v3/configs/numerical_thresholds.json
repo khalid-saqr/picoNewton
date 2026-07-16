@@ -1,0 +1,9 @@
+{
+  "isotropic_linf_absolute": 1e-8,
+  "normalized_backward_residual": 1e-13,
+  "differentiation_polynomial_error": 1e-10,
+  "sensor_periodic_residual": 1e-10,
+  "probability_min": -1e-12,
+  "probability_max": 1.000000000001,
+  "numerical_error_to_claimed_effect_max": 0.1
+}

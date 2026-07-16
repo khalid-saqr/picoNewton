@@ -1,0 +1,15 @@
+control_id,name,definition,question_answered,status
+C0,zero_input,F_L=0 and tau_w=0,Basal p0 and zero dynamic response,Implementation sanity
+C1,WSS_only,psi=psi_tau,Reference endothelial-input model,Core comparator
+C2,Lamb_only_total,psi=psi_L(total),Standalone-force response,Core hypothesis
+C3,parallel_total,psi=psi_tau+psi_L(total),Combined independent-channel response,Core hypothesis
+C4,Lamb_only_anisotropy_excess,psi=psi_L(F_aniso-F_isotropic),Detectability of anisotropy-specific increment,Secondary claim
+C5,isotropic_hydrodynamic,"beta=gamma=0, delta=1",Classical Womersley baseline,Required negative control
+C6,low_harmonic,retain h<=2 before real-field product,Tests high-harmonic specificity,Required spectral control
+C7,phase_scrambled,"preserve amplitudes, randomize source phases with fixed seed",Tests phase sensitivity,Secondary control; never called physiological
+C8,rms_matched_sinusoid,replace Lamb waveform with RMS-matched fundamental sinusoid,Tests waveform complexity beyond amplitude,Required spectral control
+C9,amplitude_matched_WSS,rescale WSS work to Lamb-work RMS,Tests input waveform information independent of gain,Required nonredundancy control
+C10,best_fit_WSS_surrogate,"fit WSS gain, baseline, lag and activation volume on training cases",Strongest WSS sufficiency test,Required for primary claim
+C11,direction_reversal,signed sensitivity sigma_L=+1 versus -1,Separates inward- and outward-activating hypotheses,Required direction control
+C12,magnitude_sensor,G_L(F)=|F|,Direction-insensitive exposure hypothesis,Separate model class
+C13,reproduction_solver,current public executable ordering/layout,Traceability only,Must not support primary conclusions alone
