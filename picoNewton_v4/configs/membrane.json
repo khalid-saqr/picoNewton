@@ -1,0 +1,17 @@
+{
+  "sls": {
+    "instantaneous_modulus_pa": 2500.0,
+    "relaxed_modulus_pa": 1000.0,
+    "stress_relaxation_time_s": 0.25,
+    "thickness_m": 3.5e-7
+  },
+  "wss_mapping": {
+    "transfer_fraction": 1.0
+  },
+  "force_mapping": {
+    "effective_area_m2": 1e-10,
+    "transfer_fraction": 1.0
+  },
+  "primary_common_state": "equivalent_areal_strain",
+  "force_input_policy": "signed force only; magnitude exposure is diagnostic and not a signed load"
+}
