@@ -1,24 +1,38 @@
-"""Command-line entry point for the Step 3 scaffold."""
-
+"""Command-line entry point for picoNewton_v4."""
 from __future__ import annotations
 
 import argparse
 import json
 from pathlib import Path
 
-from .sources import validate_cellml_sources
+from .workflow_step4 import run_step4
+
+
+def _package_root(repo_root: Path) -> Path:
+    return repo_root / "picoNewton_v4" if (repo_root / "picoNewton_v4").exists() else repo_root
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--run-step4", action="store_true")
+    parser.add_argument("--profile", choices=("quick", "publication"), default="quick")
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+
+    package_root = _package_root(args.repo_root)
     if args.smoke:
-        package_root = args.repo_root / "picoNewton_v4" if (args.repo_root / "picoNewton_v4").exists() else args.repo_root
+        from .sources import validate_cellml_sources
+
         report = validate_cellml_sources(package_root)
         print(json.dumps(report, indent=2, sort_keys=True))
         return 0 if report["ok"] else 1
+    if args.run_step4:
+        output = args.output or package_root / "outputs" / f"step4_{args.profile}"
+        manifest = run_step4(package_root=package_root, output_root=output, profile=args.profile)
+        print(json.dumps(manifest, indent=2, sort_keys=True))
+        return 0 if manifest["status"] == "passed" else 1
     parser.print_help()
     return 0
 
