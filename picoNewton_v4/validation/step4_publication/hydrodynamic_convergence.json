@@ -1,0 +1,8 @@
+{
+  "artery_id": "thoracic_aorta",
+  "coarse_order": 150,
+  "fine_order": 180,
+  "force_exposure_n_relative_l2": 1.6921758691845452e-11,
+  "force_signed_n_relative_l2": 1.6949471562034205e-11,
+  "wall_shear_pa_relative_l2": 2.5318678629445723e-13
+}
