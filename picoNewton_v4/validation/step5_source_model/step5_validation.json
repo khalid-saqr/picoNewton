@@ -1,0 +1,40 @@
+{
+  "claim_boundary": "The uncoupled source equations and 500-ms saturating-pressure voltage behavior are verified. No hydrodynamic, membrane, force, or WSS coupling was executed.",
+  "coupling_executed": false,
+  "figure3_voltage_clamp_validation": {
+    "all_probabilities_bounded": true,
+    "negative_voltage_mean_inactivation": 0.7275855140621865,
+    "positive_voltage_mean_inactivation": 0.16587181977307477,
+    "positive_voltage_reduces_inactivation": true
+  },
+  "numerical_validation": {
+    "max_generator_column_sum": 3.469446951953614e-18,
+    "max_matrix_exponential_vs_dop853_error": 4.684330701110184e-11,
+    "max_probability_sum_error": 4.275246823226553e-12,
+    "max_semigroup_error": 1.081024159077515e-12,
+    "min_probability": 4.892570771044399e-07,
+    "passed": true
+  },
+  "repeated_pressure_diagnostic": {
+    "alternating_negative_last_to_first": 0.35516559739934944,
+    "alternating_preserves_more_than_negative": true,
+    "exact_figure4_reproduction_claimed": false,
+    "negative_desensitizes": true,
+    "negative_last_to_first": 0.20225256788966156,
+    "positive_last_to_first": 0.7694905634596644,
+    "positive_preserves_more_than_negative": true,
+    "pulse_period_ms": 1000.0,
+    "pulse_width_ms": 300.0
+  },
+  "scope": "uncoupled channel source-model verification only",
+  "source_doi": "10.1113/JP288666",
+  "source_git_blobs": {
+    "channel_cellml": "0995069956067a45fd313c9afc0172c6fe4315a7",
+    "parameter_cellml": "599ae84008de220ca89e22d2afa8bccb1d2af0ee",
+    "source_metadata": "5a932e65deca2dc432fb28f3be6ccc5b15930ea5",
+    "units_cellml": "ffe22f90b0cd9c450c339735a7a592aae8476591"
+  },
+  "source_model": "Ogiermann et al. four-state Piezo1 Markov model",
+  "status": "passed",
+  "step": 5
+}
