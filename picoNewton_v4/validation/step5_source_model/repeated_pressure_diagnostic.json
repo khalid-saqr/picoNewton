@@ -1,0 +1,37 @@
+{
+  "alternating_negative_peaks": [
+    0.3255164085802418,
+    0.2421647147827114,
+    0.1869991405990476,
+    0.15197150345446053,
+    0.12973216676545885,
+    0.11561222971669229
+  ],
+  "negative_peaks": [
+    0.3255164085802418,
+    0.2343387536576885,
+    0.1692331698478137,
+    0.12274206677090452,
+    0.0895433372523157,
+    0.06583652952557416
+  ],
+  "positive_peaks": [
+    0.8853607969658845,
+    0.8299936334526067,
+    0.7830993487323782,
+    0.7433869816012499,
+    0.709756613464048,
+    0.681276778522376
+  ],
+  "validation": {
+    "alternating_negative_last_to_first": 0.35516559739934944,
+    "alternating_preserves_more_than_negative": true,
+    "exact_figure4_reproduction_claimed": false,
+    "negative_desensitizes": true,
+    "negative_last_to_first": 0.20225256788966156,
+    "positive_last_to_first": 0.7694905634596644,
+    "positive_preserves_more_than_negative": true,
+    "pulse_period_ms": 1000.0,
+    "pulse_width_ms": 300.0
+  }
+}
