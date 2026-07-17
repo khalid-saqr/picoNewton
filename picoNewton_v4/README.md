@@ -7,22 +7,9 @@ Standalone computational package for testing whether anisotropic near-wall Lamb 
 - Step 1: scientific protocol frozen.
 - Step 2: source, licence, parameter and provenance audit completed.
 - Step 3: standalone package and Google Colab runtime scaffold completed.
-- **Step 4: standalone anisotropic Womersley hydrodynamics completed and publication-resolution six-artery reproduction passed.**
-- Membrane mechanics and Piezo1 coupling are not implemented yet.
-
-## Step 4 scope
-
-The standalone hydrodynamic layer computes, for all six published arteries:
-
-- anisotropic axial and azimuthal harmonic velocity fields;
-- vorticity and the real-field radial Lamb vector;
-- signed endothelial control-volume force;
-- published magnitude-type force exposure;
-- anisotropic axial wall shear stress;
-- isotropic Lamb-force and WSS references;
-- anisotropy-specific signed and exposure increments;
-- harmonic spectra through nonlinear harmonic 12;
-- Gromeka–Lamb closure, analytical isotropic validation and grid convergence.
+- Step 4: standalone anisotropic Womersley hydrodynamics completed; publication-resolution six-artery reproduction passed.
+- **Step 5: independent uncoupled Piezo1 source-model implementation and verification completed.**
+- Membrane mechanics and hydrodynamic-to-Piezo1 coupling are not implemented yet.
 
 The package does not import `piconewton_v3`.
 
@@ -34,7 +21,7 @@ pytest picoNewton_v4/tests
 piconewton-v4 --repo-root . --smoke
 ```
 
-## Run Step 4
+## Run Step 4 hydrodynamics
 
 ```bash
 piconewton-v4 \
@@ -44,22 +31,25 @@ piconewton-v4 \
   --output /tmp/piconewton_v4_step4
 ```
 
-Publication resolution:
+Use `--profile publication` for `N=150`, `Nt=2048`, and `Nq=256`.
+
+## Run Step 5 Piezo1 verification
 
 ```bash
 piconewton-v4 \
   --repo-root . \
-  --run-step4 \
-  --profile publication \
-  --output /tmp/piconewton_v4_step4_publication
+  --run-step5 \
+  --output /tmp/piconewton_v4_step5
 ```
+
+Step 5 independently implements the exact four-state CellML model, verifies its parameter transcription, conservation and positivity, compares matrix-exponential propagation with DOP853, and reproduces the source model's 500-ms saturating-pressure voltage dependence.
 
 ## Colab
 
-Open `notebooks/picoNewton_v4_colab.ipynb`. It mounts Google Drive, creates a unique persistent runtime directory, runs computation under `/content`, validates the committed CellML assets, executes the test suite and copies the Step 4 outputs to Drive.
+Open `notebooks/picoNewton_v4_colab.ipynb`. It mounts Google Drive, creates a unique persistent runtime directory, runs computation under `/content`, validates the committed CellML assets, executes the full test suite, runs Step 4 and Step 5, and copies outputs to Drive.
 
 ## Scientific boundary
 
-Step 4 reproduces hydrodynamic observables only. It does not equate the Lamb-force control-volume quantity with wall traction or membrane tension and does not calculate Piezo1 gating.
+Step 4 reproduces hydrodynamic observables. Step 5 verifies an uncoupled Piezo1 channel model. Neither step equates the Lamb-force control-volume quantity with wall traction, membrane tension, or Piezo1 pressure. No force-to-channel coupling is present.
 
-The immutable Step 1 protocol is in `configs/protocol.yaml`. The Step 2 source and parameter lock is in `configs/source_lock.yaml` and `data/`. Original Piezo1 CellML sources are committed under `external/cellml/ogiermann_2025/` with source attribution and licence information.
+The immutable protocol is in `configs/protocol.yaml`. Original Piezo1 CellML sources are committed under `external/cellml/ogiermann_2025/` with attribution and licence information.
