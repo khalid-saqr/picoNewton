@@ -1,0 +1,29 @@
+{
+  "all_outputs_finite": true,
+  "all_six_arteries_present": true,
+  "default_parameters_in_primary_domain": true,
+  "elastic_limit_max_abs_error": 1.6263032587282567e-19,
+  "force_mapping_10_pn_to_pa": 0.09999999999999999,
+  "harmonic_energy_balance": {
+    "mean_dissipation_density_w_m3": 0.0004593162378297528,
+    "mean_input_power_density_w_m3": 0.00045931623782975283,
+    "relative_error": 1.1802349701463938e-16
+  },
+  "high_frequency_compliance_error": 5.421010862427522e-20,
+  "low_frequency_compliance_error": 0.0,
+  "magnitude_force_exposure_used_as_signed_load": false,
+  "maximum_branch_tension_closure_n_m": 8.470329472543003e-22,
+  "minimum_dissipation_density_w_m3": 9.16951162838683e-19,
+  "passed": true,
+  "passivity": {
+    "energy_balance_relative_error": 1.1802349701463938e-16,
+    "minimum_loss_modulus_pa": 0.23561944320555778,
+    "passed": true
+  },
+  "piezo1_coupling_executed": false,
+  "primary_force_input": "force_signed_anisotropic_n",
+  "step_initial_strain_error": 5.421010862427522e-20,
+  "step_relaxed_strain_error": 0.0,
+  "wss_mapping_1_pa_to_pa": 1.0,
+  "zero_input_max_abs_strain": 0.0
+}
