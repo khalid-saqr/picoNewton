@@ -1,0 +1,20 @@
+{
+  "all_outputs_finite": true,
+  "all_six_arteries_present": true,
+  "alpha_max_abs_error": 0.014031555394758755,
+  "convergence": {
+    "artery_id": "thoracic_aorta",
+    "coarse_order": 150,
+    "fine_order": 180,
+    "force_exposure_n_relative_l2": 1.6921758691845452e-11,
+    "force_signed_n_relative_l2": 1.6949471562034205e-11,
+    "wall_shear_pa_relative_l2": 2.5318678629445723e-13
+  },
+  "force_exposure_nonnegative": true,
+  "max_backward_residual": 3.587828730875626e-17,
+  "max_gromeka_lamb_closure_relative_error": 2.2881686356950433e-13,
+  "max_isotropic_linf_error": 1.0802573724741431e-13,
+  "max_signed_force_power_above_h12": 3.5473397077391446e-31,
+  "max_wss_power_above_h6": 1.7705643156207878e-31,
+  "passed": true
+}
