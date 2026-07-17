@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "piconewton-v4"
-version = "0.3.0.dev0"
+version = "0.4.0.dev0"
 description = "Standalone physical-interface framework for anisotropic Womersley forcing, endothelial membrane loading, and Piezo1 gating."
 readme = "README.md"
 requires-python = ">=3.11"
