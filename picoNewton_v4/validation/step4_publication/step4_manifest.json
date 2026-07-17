@@ -1,0 +1,28 @@
+{
+  "step": 4,
+  "status": "passed",
+  "profile": "publication",
+  "completed_utc": "2026-07-17T14:48:05.316387+00:00",
+  "hydrodynamic_config": {
+    "beta": 0.1,
+    "gamma": 0.1,
+    "delta": 1.0,
+    "radial_order": 150,
+    "time_points": 2048,
+    "near_wall_nodes": 256
+  },
+  "inputs": {
+    "arteries": "picoNewton_v4/data/ground_truth_arteries.csv",
+    "arteries_sha256": "922a3443c00e8d726f66386401d63f0feb195124c63afe51295c9813e5f7b138"
+  },
+  "generated_output_sha256": {
+    "hydrodynamic_convergence.json": "3728418523caf69c8aa3500a72f8cf000dfcf616c1bbe252f16f0d7904eed6c6",
+    "isotropic_womersley_validation.csv": "0734c36636e312802f670fb8585a9fb699507ab209f4bd08dcf9db10cfe5f666",
+    "six_artery_hydrodynamic_spectra.csv": "a89078a9aff23f9c88126bd16d586063dfdca872d108bd042a4eaf88fff136b0",
+    "six_artery_hydrodynamic_summary.csv": "8ac3a853abe26678c074ff38889ba9abdc4d4c171edcdbb49dea6e55f6982465",
+    "six_artery_hydrodynamic_waveforms.csv": "3eb55dd4b4ddc12740eff817949fdfadb086a19485b1a0153d129cff407ab8fe",
+    "six_artery_hydrodynamics.npz": "eb7aed7c749af24bbce28a9342acf7a197924bdaae55b3c4c7e317f7007717f6",
+    "step4_validation.json": "b5a19597f62f25485c4c21cc2199fe9c09ca792fa35d9398069b9a4f6c8b70a9"
+  },
+  "claim_boundary": "Hydrodynamic reproduction only. No membrane loading, Piezo1 gating, or biological inference is performed in Step 4."
+}
