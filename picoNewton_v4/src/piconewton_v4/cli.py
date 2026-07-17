@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from .workflow_step4 import run_step4
+from .workflow_step5 import run_step5
 
 
 def _package_root(repo_root: Path) -> Path:
@@ -17,11 +18,16 @@ def main() -> int:
     parser.add_argument("--repo-root", type=Path, default=Path.cwd())
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--run-step4", action="store_true")
+    parser.add_argument("--run-step5", action="store_true")
     parser.add_argument("--profile", choices=("quick", "publication"), default="quick")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
 
     package_root = _package_root(args.repo_root)
+    selected = sum((args.smoke, args.run_step4, args.run_step5))
+    if selected > 1:
+        parser.error("select only one action")
+
     if args.smoke:
         from .sources import validate_cellml_sources
 
@@ -31,6 +37,11 @@ def main() -> int:
     if args.run_step4:
         output = args.output or package_root / "outputs" / f"step4_{args.profile}"
         manifest = run_step4(package_root=package_root, output_root=output, profile=args.profile)
+        print(json.dumps(manifest, indent=2, sort_keys=True))
+        return 0 if manifest["status"] == "passed" else 1
+    if args.run_step5:
+        output = args.output or package_root / "outputs" / "step5_source_model"
+        manifest = run_step5(package_root=package_root, output_root=output)
         print(json.dumps(manifest, indent=2, sort_keys=True))
         return 0 if manifest["status"] == "passed" else 1
     parser.print_help()
