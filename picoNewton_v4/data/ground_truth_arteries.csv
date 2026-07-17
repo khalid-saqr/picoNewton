@@ -1,7 +1,7 @@
-artery,radius_m,womersley_alpha,h1,h2,h3,h4,h5,h6,source
-Aortic Root,0.015,22.03,1.00,0.82,0.54,0.33,0.24,0.17,Saqr 2026 Table 1
-Thoracic Aorta,0.012,17.62,1.00,0.76,0.45,0.28,0.20,0.12,Saqr 2026 Table 1
-Femoral,0.004,5.87,1.00,0.58,0.10,-0.17,0.05,0.04,Saqr 2026 Table 1
-Carotid,0.0035,5.14,1.00,0.63,0.31,0.15,0.10,0.06,Saqr 2026 Table 1
-Iliac,0.0045,6.61,1.00,0.51,0.12,-0.11,0.05,0.03,Saqr 2026 Table 1
-Brachial,0.002,2.94,1.00,0.49,0.16,-0.05,0.02,0.01,Saqr 2026 Table 1
+artery,artery_id,radius_m,womersley_alpha,pressure_gradient_scale_pa_per_m,h1,h2,h3,h4,h5,h6,source
+Aortic Root,aortic_root,0.015,22.03,9000,1.00,0.82,0.54,0.33,0.24,0.17,Saqr 2026 Table 1 and published v2 code
+Thoracic Aorta,thoracic_aorta,0.012,17.62,7000,1.00,0.76,0.45,0.28,0.20,0.12,Saqr 2026 Table 1 and published v2 code
+Femoral,femoral,0.004,5.87,6000,1.00,0.58,0.10,-0.17,0.05,0.04,Saqr 2026 Table 1 and published v2 code
+Carotid,carotid,0.0035,5.14,6500,1.00,0.63,0.31,0.15,0.10,0.06,Saqr 2026 Table 1 and published v2 code
+Iliac,iliac,0.0045,6.61,5500,1.00,0.51,0.12,-0.11,0.05,0.03,Saqr 2026 Table 1 and published v2 code
+Brachial,brachial,0.002,2.94,4000,1.00,0.49,0.16,-0.05,0.02,0.01,Saqr 2026 Table 1 and published v2 code
