@@ -1,0 +1,33 @@
+{
+  "actual_google_colab_full_run": "not executed in this environment",
+  "archive_checksum_fixture": {
+    "passed": true
+  },
+  "fixture_validation": {
+    "arteries": 6,
+    "complete_figures": 3,
+    "exports": [
+      "pdf",
+      "svg",
+      "png_600dpi",
+      "tiff_600dpi_lzw"
+    ],
+    "figure_legends": true,
+    "parameter_scenarios": 13,
+    "parametric_rows": 78,
+    "passed": true
+  },
+  "notebook": {
+    "cells": 31,
+    "code_compiles": true,
+    "nbformat_valid": true,
+    "outputs_cleared": true,
+    "path": "picoNewton_v4/notebooks/picoNewton_v4_colab.ipynb",
+    "sha256": "44d5a20648395e2b61ca54985826dcf70d9bd7d91728459c99515277746f17d4"
+  },
+  "production_script": {
+    "code_compiles": true,
+    "path": "picoNewton_v4/scripts/run_colab_production.py",
+    "sha256": "de737c57e9599e74a5171c681d143fc08fce3a5be30fccd4e00056a4647b5019"
+  }
+}
