@@ -23,8 +23,8 @@
     "nbformat_valid": true,
     "outputs_cleared": true,
     "path": "picoNewton_v4/notebooks/picoNewton_v4_colab.ipynb",
-    "pinned_repository_commit": "419892085a270b9d0999e2e692e6eefeb408cd81",
-    "sha256": "953fdda10afae542a18af841e0832c425aeaf8854bfe2a1547f2a5b4bffb5a2a"
+    "sha256": "212eafc8ac84f60804d418c1b518f56bf2f6d4416ee58ce1094e03b8b57c1655",
+    "source_policy": "clone_main_and_record_resolved_sha"
   },
   "production_script": {
     "code_compiles": true,
