@@ -1,0 +1,5 @@
+Package integrity checks passed.
+............                                                             [100%]
+12 passed
+Quick profile: passed structural validation.
+Full profile: passed structural validation.

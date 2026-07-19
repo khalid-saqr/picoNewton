@@ -1,0 +1,161 @@
+{
+  "file_count": 39,
+  "files": {
+    ".gitignore": {
+      "sha256": "123789aecf3461ad0f21f858498a6520dee16c4a79df10e18f87019dd1c6a46f",
+      "size_bytes": 92
+    },
+    "PACKAGE_TEST_LOG.txt": {
+      "sha256": "00b500653b51b670151f983ee9f6f5c16369f604ccb7a84417bdfec54ad9207e",
+      "size_bytes": 212
+    },
+    "PACKAGE_VALIDATION.json": {
+      "sha256": "63e752a5f53142b64f56dbcb4f3e70b9f02c1aba363e7c5fe45c424ad73db234",
+      "size_bytes": 1462
+    },
+    "README.md": {
+      "sha256": "7d700edbaae310c8506e9b57f9f8f2f60f68aacfc198f76d099eada3995403cf",
+      "size_bytes": 4344
+    },
+    "configs/calibration_template.json": {
+      "sha256": "65a7b7c27490cdc40c6f9108d56e9cf0c32b616520cdca06dc5197b6f38189c8",
+      "size_bytes": 1861
+    },
+    "configs/literature_calibration.json": {
+      "sha256": "2e978465da99c3f051841a1a55b72105b03e3a91abf1d3dfa369bf66aa323cd0",
+      "size_bytes": 8692
+    },
+    "configs/model.json": {
+      "sha256": "108fde63416b591a80f94d8baad98972b31f5ddf4710612f44b85a6bbe51a4b8",
+      "size_bytes": 2065
+    },
+    "data/ground_truth_arteries.csv": {
+      "sha256": "fbf1dc7685083c2cd996e140f2df63c8a4ea8effb05c99d03721641afe5b9bd0",
+      "size_bytes": 703
+    },
+    "docs/COLAB_EXECUTION.md": {
+      "sha256": "75d27a7f035dc6e3c2fe77f25e533d9d7fa8033399e0b00fbf44fdb53c43fdc9",
+      "size_bytes": 1868
+    },
+    "docs/OUTPUT_REFERENCE.md": {
+      "sha256": "28d3a7c97ea97cde18e1c83827ddfba770f7a71351aee17d37156b449983dc6f",
+      "size_bytes": 1858
+    },
+    "docs/REPRODUCIBILITY.md": {
+      "sha256": "970edd2c17accabb4f8ee85e4933ef69a0ca4dabbbe9d5a84c3beafda418fb8f",
+      "size_bytes": 1223
+    },
+    "docs/SCIENTIFIC_MODEL.md": {
+      "sha256": "bcbca7b4d06739e3c23fb0b4a9a82427543492865aa771c8a2b6ce56fcb64bff",
+      "size_bytes": 4368
+    },
+    "notebooks/picoNewton_v4_colab.ipynb": {
+      "sha256": "e445edc721accc73f2a8af18749bb4221e88dd3f68409dc80ce7cc25722bfdca",
+      "size_bytes": 25887
+    },
+    "pyproject.toml": {
+      "sha256": "29b244354d713c9625d96e38dfb302ac81378fbd0010b63ce52a6f0a684818ef",
+      "size_bytes": 725
+    },
+    "scripts/run_local.py": {
+      "sha256": "e58044cb0e66eba79c8cbf12a6347e74559e155115125de34fb988d9168a033c",
+      "size_bytes": 1186
+    },
+    "scripts/verify_package.py": {
+      "sha256": "2d7cb2ee4affdda754b8ae458c398f1e21408d66823065f8187d9d00a5e8c863",
+      "size_bytes": 1732
+    },
+    "src/piconewton_v4/__init__.py": {
+      "sha256": "1e90e7e55801cd40c459257a5c3d60b53d974fe7f9612754519ba8392740c95a",
+      "size_bytes": 102
+    },
+    "src/piconewton_v4/calibration.py": {
+      "sha256": "f5d9996714dbf7181287b681b322cf7a24859206e233c086d3d26a62ea27272c",
+      "size_bytes": 4456
+    },
+    "src/piconewton_v4/cli.py": {
+      "sha256": "01cc3af88265d4da95fb433be9fbe39715f987fa8bc0f8a1f2098db04868abf3",
+      "size_bytes": 1572
+    },
+    "src/piconewton_v4/coupling.py": {
+      "sha256": "5cb38950119926fedc9778d2436c7a8552d8eff894713973c513d1f1b9da2892",
+      "size_bytes": 1670
+    },
+    "src/piconewton_v4/endpoints.py": {
+      "sha256": "4e8e076a0f5a3a30311309221bc3dbb8aeb23a978cac063a7b4cea33a3489d73",
+      "size_bytes": 5928
+    },
+    "src/piconewton_v4/hydrodynamics.py": {
+      "sha256": "8bd755032965b482ec80f8128466b19b91cfc7c1d324e49e6862a1aa7069c57a",
+      "size_bytes": 10701
+    },
+    "src/piconewton_v4/hypotheses.py": {
+      "sha256": "5d62f25214d0061c46cad49777b8d5df73ee0dc74a328cefb24335bb67cbb78a",
+      "size_bytes": 2951
+    },
+    "src/piconewton_v4/membrane.py": {
+      "sha256": "faa68a6a1bb523ebd53a9c835101a7d1fcc9902d610a56bf1044d37e28c72079",
+      "size_bytes": 479
+    },
+    "src/piconewton_v4/piezo1.py": {
+      "sha256": "4a2f68c9bd22496d448a71cd0b5be7863a0e489b47cfcfda0355443b091765e9",
+      "size_bytes": 5454
+    },
+    "src/piconewton_v4/reporting.py": {
+      "sha256": "1950abe0de3057ffaf0c1dce757ef0189c3d26d4537936a308d1e20e3de40b61",
+      "size_bytes": 2870
+    },
+    "src/piconewton_v4/types.py": {
+      "sha256": "360d4507266a35e23d4e4fe3c807a8798005b89efbd9e0d575770542bbd134c8",
+      "size_bytes": 3123
+    },
+    "src/piconewton_v4/validation.py": {
+      "sha256": "0b9f84720b38d063b6090d4138e7ec13d2f2a8f00f41333424907ce169ec289b",
+      "size_bytes": 1662
+    },
+    "src/piconewton_v4/vector_interface.py": {
+      "sha256": "2cf367b4fee2d3299c3aaa10bf3914ec1cac3201d235d3c902c2713bd546a6a8",
+      "size_bytes": 9156
+    },
+    "src/piconewton_v4/workflow.py": {
+      "sha256": "adc440d2a5f331a170964f7df433256490eebf49f8a1dbd498ecbb783d10da56",
+      "size_bytes": 29605
+    },
+    "tests/test_calibration.py": {
+      "sha256": "d230371873cf4654be800544e9243d7f7ff88529a1c1200bbce9055b09de6a1d",
+      "size_bytes": 1126
+    },
+    "tests/test_endpoints.py": {
+      "sha256": "a76366e8ff8be106d6ddc6a8aafa17ac7c7eb4872378598ca9069a7198480442",
+      "size_bytes": 491
+    },
+    "tests/test_hydrodynamics.py": {
+      "sha256": "9b7115ee13571ed6597413af81364e6fa0d0f8863a38fe90042d5dc3e7dfbfab",
+      "size_bytes": 670
+    },
+    "tests/test_hypotheses.py": {
+      "sha256": "836e9b84c6a2af8d180d24512ec32cdb7ad893f3eb6e3f7da38a6da5511305ae",
+      "size_bytes": 716
+    },
+    "tests/test_notebook_contract.py": {
+      "sha256": "f2f3da8ea4f7d9ff370bc34f413374e3d0a293348b430ac3e302abb95827f3b8",
+      "size_bytes": 1052
+    },
+    "tests/test_piezo1.py": {
+      "sha256": "7bcef4f9f02e820bec2e3ce1736b37af3880db6c74f0a93a453dd4400a082102",
+      "size_bytes": 597
+    },
+    "tests/test_vector_interface.py": {
+      "sha256": "de7733e94baf68232a7d38bf92e6b55b7732ecd6393be478e7463a1428670bb2",
+      "size_bytes": 1072
+    },
+    "tests/test_vectorized_piezo1.py": {
+      "sha256": "ef4c64d342b49dfed1b5ead32a64136198bf399518c14235334cab8f505624e4",
+      "size_bytes": 438
+    },
+    "tests/test_workflow.py": {
+      "sha256": "5bb7995e1c0391dce904d6034ac2e813cb0abef240d5e29995c7047559303d66",
+      "size_bytes": 619
+    }
+  }
+}

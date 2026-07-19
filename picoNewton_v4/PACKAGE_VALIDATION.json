@@ -1,0 +1,48 @@
+{
+  "full_profile": {
+    "arteries": 6,
+    "effect_rows": 120,
+    "elapsed_seconds_observed": 25,
+    "maximum_probability_sum_error": 2.2726265314076954e-13,
+    "minimum_probability": 3.08985178908782e-07,
+    "status": "passed_structural_validation",
+    "summary_rows": 30,
+    "waveform_arrays": 576
+  },
+  "notebook": {
+    "cells": 25,
+    "github_clone_and_install": true,
+    "google_drive_mount": true,
+    "path": "notebooks/picoNewton_v4_colab.ipynb",
+    "standalone_markdown_documentation": true,
+    "stored_outputs": 0,
+    "timestamped_drive_runs": true
+  },
+  "package_name": "picoNewton_v4",
+  "package_version": "4.0.0",
+  "quick_profile": {
+    "arteries": 6,
+    "effect_rows": 120,
+    "elapsed_seconds_observed": 11,
+    "maximum_probability_sum_error": 1.9229062786507711e-13,
+    "minimum_probability": 3.0993614819579546e-07,
+    "status": "passed_structural_validation",
+    "summary_rows": 30,
+    "waveform_arrays": 576
+  },
+  "scientific_invariants": {
+    "all_six_arteries_present": true,
+    "fast_and_slow_branches_present": true,
+    "magnitude_exposure_used_as_signed_load": false,
+    "mechanical_passivity_passed": true,
+    "normal_and_tangential_mechanics_separate": true,
+    "probability_conservation_passed": true,
+    "signed_and_exposure_force_classes_separate": true
+  },
+  "static_integrity": "passed",
+  "tests": {
+    "failed": 0,
+    "passed": 12
+  },
+  "validated_utc": "2026-07-19T02:43:27.307697+00:00"
+}

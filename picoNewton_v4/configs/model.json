@@ -1,0 +1,59 @@
+{
+  "claim_enablement_requirement": "independently calibrated localization, membrane, channel-density, endpoint and detection-limit parameters with predeclared thresholds",
+  "claims_enabled": false,
+  "endpoint": {
+    "calcium_clearance_time_s": 0.5,
+    "calcium_current_fraction": 0.05,
+    "calcium_detection_limit_nm": 10.0,
+    "calibration_status": "literature_constrained_independent_evidence",
+    "cell_volume_l": 2e-12,
+    "channel_count": 1000.0,
+    "current_detection_limit_pa": 1.0,
+    "membrane_voltage_mv": -40.0,
+    "reversal_potential_mv": 0.0,
+    "single_channel_conductance_ps": 30.0
+  },
+  "hydrodynamics": {
+    "beta": 0.1,
+    "delta": 1.0,
+    "gamma": 0.1,
+    "near_wall_nodes": 48,
+    "profile": "quick",
+    "radial_order": 48,
+    "time_points": 256
+  },
+  "hypotheses": {
+    "H3a": "direct WSS versus signed-force and exposure pathways",
+    "H3b": "held-out WSS surrogate versus actual force pathways",
+    "H4": "anisotropic versus isotropic signed-force and exposure pathways",
+    "H5": "full versus h<=2 force pathways using transient current and calcium endpoints",
+    "H6": "artery specificity from multifeature current/calcium response",
+    "H7": "persistence in generalized-SLS and elastic limits"
+  },
+  "mechanics": {
+    "apical_curvature_radius_m": 1e-06,
+    "areal_modulus_n_m": 0.2,
+    "baseline_apical_tension_n_m": 0.0005,
+    "baseline_junctional_tension_n_m": 0.0005,
+    "exposure_area_m2": 1e-10,
+    "junctional_curvature_radius_m": 1e-06,
+    "normal": {
+      "E0_pa": 1800.0,
+      "Einf_pa": 700.0,
+      "fast_fraction": 0.4,
+      "fast_time_s": 0.005,
+      "slow_time_s": 0.15
+    },
+    "parameterization_status": "literature-constrained reference; uncertainty propagation required for inference",
+    "reference_cross_coupling": "zero",
+    "signed_force_area_m2": 1e-10,
+    "tangential": {
+      "E0_pa": 2500.0,
+      "Einf_pa": 1000.0,
+      "fast_fraction": 0.25,
+      "fast_time_s": 0.01,
+      "slow_time_s": 0.25
+    }
+  },
+  "model_revision": "4.0-vector-local-current-calcium"
+}

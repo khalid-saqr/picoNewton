@@ -1,0 +1,58 @@
+{
+  "calibration_status": "incomplete",
+  "notes": "Populate every source field from independent evidence before using the configuration for scientific claim classification.",
+  "sources": {
+    "calcium_conversion": "",
+    "calcium_detection_limit": "",
+    "channel_density": "",
+    "current_detection_limit": "",
+    "exposure_localization": "",
+    "normal_mechanics": "",
+    "signed_force_localization": "",
+    "single_channel_conductance": "",
+    "spatial_channel_distribution": "",
+    "tangential_mechanics": ""
+  },
+  "values": {
+    "apical_channel_fraction": 0.5,
+    "apical_curvature_radius_m": 1e-06,
+    "areal_modulus_n_m": 0.2,
+    "baseline_apical_tension_n_m": 0.0005,
+    "baseline_junctional_tension_n_m": 0.0005,
+    "endpoint": {
+      "calcium_clearance_time_s": 0.5,
+      "calcium_current_fraction": 0.05,
+      "calcium_detection_limit_nm": 10.0,
+      "cell_volume_l": 2e-12,
+      "channel_count": 1000.0,
+      "current_detection_limit_pa": 1.0,
+      "membrane_voltage_mv": -40.0,
+      "reversal_potential_mv": 0.0,
+      "single_channel_conductance_ps": 30.0
+    },
+    "exposure_area_m2": 1e-10,
+    "exposure_to_junctional_cross_fraction": 0.0,
+    "exposure_transfer_fraction": 1.0,
+    "gradmu_mv": -40.0,
+    "junctional_curvature_radius_m": 1e-06,
+    "maximum_pressure_mmhg": 70.0,
+    "normal": {
+      "fast_fraction": 0.4,
+      "fast_time_s": 0.005,
+      "instantaneous_modulus_pa": 1800.0,
+      "relaxed_modulus_pa": 700.0,
+      "slow_time_s": 0.15
+    },
+    "signed_force_area_m2": 1e-10,
+    "signed_force_transfer_fraction": 1.0,
+    "tangential": {
+      "fast_fraction": 0.25,
+      "fast_time_s": 0.01,
+      "instantaneous_modulus_pa": 2500.0,
+      "relaxed_modulus_pa": 1000.0,
+      "slow_time_s": 0.25
+    },
+    "tangential_to_apical_cross_fraction": 0.0,
+    "wss_transfer_fraction": 1.0
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "calibration_status": "literature_constrained_independent_evidence",
+  "derivations": {
+    "baseline_tension": "lower bound of published resting cell-attached patch range 0.5-4.0 mN/m",
+    "calcium_current_fraction": "GHK estimate approximately 0.04 under physiological ion concentrations; calculation recorded in evidence report",
+    "calcium_detection_limit": "10 nM low-end Fura-2 calibration and approximately 2x HUVEC basal SEM",
+    "channel_count": "23.8 pF / (1 uF/cm^2) = 2380 um^2; 2380 um^2 * 1.75 channels/um^2 = 4165 channels",
+    "current_detection_limit": "3 * 1.1 pA RMS = 3.3 pA",
+    "curvature_radius": "mean patch-dome radius 0.8 um used in native-density analysis",
+    "localization_area_m2": "10 um^2 * 1e-12 m^2/um^2 = 1e-11 m^2"
+  },
+  "evidence_quality": {
+    "cross_cell_or_model_proxy": [
+      "fast_fraction",
+      "apical_channel_fraction",
+      "channel_count",
+      "calcium_current_fraction",
+      "clearance_time",
+      "areal_modulus"
+    ],
+    "direct_huvec": [
+      "tangential time regimes",
+      "tangential relaxed modulus",
+      "normal moduli",
+      "cortex thickness",
+      "membrane voltage",
+      "cell capacitance",
+      "cell volume"
+    ],
+    "endothelial_other_species_or_cell_type": [
+      "local cortical mesh area",
+      "shear calcium decay"
+    ],
+    "piezo_primary_or_review": [
+      "channel density proxy",
+      "single-channel conductance",
+      "curvature radius",
+      "baseline tension context"
+    ]
+  },
+  "notes": "Literature-constrained reference parameterization. Several quantities remain cross-cell or model proxies and must be treated as uncertainty variables.",
+  "parameter_notes": {
+    "apical_channel_fraction": "0.5 is neutral because apical localization is qualitative and no numerical endothelial apical/junctional fraction was found.",
+    "calcium_fraction": "0.04 is a pre-run GHK proxy, not a direct measurement.",
+    "channel_count": "4165 is derived before the run from 23.8 pF HUVEC capacitance, 1 uF/cm^2 specific capacitance, and 1.75 channels/um^2 native Neuro2A density; it is not a direct endothelial count.",
+    "fast_fraction": "0.5 is a neutral equal-weight representation because available HUVEC data identify temporal regimes but not generalized-SLS branch amplitudes.",
+    "localization_area": "10 um^2 is the largest observed coarse endothelial cortical mesh area and therefore the conservative end of the local-domain evidence range; smaller areas were not selected after observing results.",
+    "status": "All required source groups are populated, while proxy quantities remain explicitly identified.",
+    "transfer_fractions": "All three transfer fractions are fixed at 1.0 as favorable physical upper bounds. They are not inferred from the outcome."
+  },
+  "schema_version": "1.1",
+  "sources": {
+    "calcium_conversion": "Carter et al. doi:10.1111/j.1469-7793.1998.845ba.x supports HUVEC Vm=-40+/-3 mV. Yadegari F et al. J Phys Chem B. 2024;128:1139-1160. doi:10.1021/acs.jpcb.3c04534 reports HUVEC isotonic volume 2159.7+/-10.8 um^3. Shen J et al. AJP Cell Physiol. 1992;262:C384-C390. doi:10.1152/ajpcell.1992.262.2.C384 reports shear Ca2+ peaks at 15-40 s and returns toward baseline in 40-80 s, motivating a 20 s first-order clearance proxy. The Ca-current fraction 0.04 is a documented Goldman-Hodgkin-Katz proxy using physiological Na/K/Ca concentrations and reported PIEZO1 Ca permeability; it is not a direct endothelial measurement.",
+    "calcium_detection_limit": "Wickham NWR et al. Measurement of intracellular calcium concentration in intact monolayers of human endothelial cells. Basal HUVEC [Ca2+]i 117+/-5 nM. Henke W et al. Cell Calcium. 1996;20:287-292. doi:10.1016/S0143-4160(96)90034-2 calibrated Fura-2 down to 10 nM. A 10 nM change is frozen as a conservative imaging-scale detection threshold.",
+    "channel_density": "Lewis AH, Grandl J. Piezo1 ion channels inherently function as independent mechanotransducers. eLife. 2021;10:e70988. doi:10.7554/eLife.70988. Native Neuro2A density about 1.75 channels/um^2. Carter TD et al. Membrane capacitance changes induced by thrombin and calcium in single HUVEC. J Physiol. 1998;513:845-855. doi:10.1111/j.1469-7793.1998.845ba.x. Mean HUVEC capacitance 23.8 pF. Using the standard 1 uF/cm^2 specific capacitance gives about 2380 um^2 membrane area and 4165 channels. This is a cross-cell literature proxy, not a direct HUVEC PIEZO1 count.",
+    "current_detection_limit": "Harrison RR et al. Microchip amplifier for in vitro, in vivo, and automated whole-cell patch-clamp recording. J Neurophysiol. 2015;113:1275-1282. doi:10.1152/jn.00629.2014. Current noise 1.1 pA RMS over 5 kHz; a conservative 3-sigma threshold of 3.3 pA is frozen before analysis.",
+    "exposure_localization": "Pesen D, Hoh JH. doi:10.1529/biophysj.104.049965. The same conservative 10 um^2 upper end of the measured endothelial cortical-mesh area is used for the nonnegative magnitude-exposure pathway. Exposure remains a magnitude/energy input and is never treated as signed force.",
+    "normal_mechanics": "Vargas-Pinto R et al. The effect of the endothelial cell cortex on atomic force microscopy measurements. Biophys J. 2013;105:300-309. PMCID:PMC3714930; PMID:23870251. HUVEC modulus 3.23+/-0.54 kPa with sharp tips, 0.71+/-0.16 kPa with spherical tips, cortex thickness 312+/-65 nm. Feneberg et al. doi:10.1529/biophysj.103.037044 supplies the independently measured 0.05 and 0.15 s HUVEC relaxation-regime boundaries. The equal fast/slow branch weight is a neutral model-identification convention.",
+    "signed_force_localization": "Pesen D, Hoh JH. Micromechanical architecture of the endothelial cell cortex. Biophys J. 2005;88:670-679. doi:10.1529/biophysj.104.049965. Endothelial apical cortex coarse mechanical mesh elements span approximately 0.5-10 um^2. The conservative largest reported coherent-domain area, 10 um^2, is used; unit force transfer is an explicit favorable upper bound, not a measured efficiency.",
+    "single_channel_conductance": "Vascular mechanotransduction. Physiol Rev. 2023;103. doi:10.1152/physrev.00053.2021, summarizing primary PIEZO1 measurements: approximately 30 pS under physiological Ca2+-containing conditions. The endpoint uses 30 pS.",
+    "spatial_channel_distribution": "Mylvaganam S et al. The spectrin cytoskeleton integrates endothelial mechanoresponses. Nat Cell Biol. 2022;24:1226-1238. doi:10.1038/s41556-022-00953-5. The study supports apical spectrin/caveola-associated PIEZO1 mechanosensing but does not quantify an apical fraction; therefore a neutral 0.5 apical/junctional split is frozen and flagged as an unmeasured spatial proxy.",
+    "tangential_mechanics": "Feneberg W, Aepfelbacher M, Sackmann E. Microviscoelasticity of the apical cell surface of HUVEC within confluent monolayers. Biophys J. 2004;87:1338-1350. doi:10.1529/biophysj.103.037044. HUVEC fast response t<0.05 s, plateau 0.05-0.15 s, surface shear modulus 2.5e-4 N/m and inferred bulk modulus about 400 Pa. Mathur AB et al. Atomic force and TIRF microscopy for force transmission in endothelial cells. Biophys J. 2000;78:1725-1735. PMID:10733955. HUVEC edge modulus 1.27+/-0.36 kPa. The equal fast/slow branch weight is a neutral model-identification convention because the papers do not report a two-branch amplitude decomposition."
+  },
+  "values": {
+    "apical_channel_fraction": 0.5,
+    "apical_curvature_radius_m": 8e-07,
+    "areal_modulus_n_m": 0.288,
+    "baseline_apical_tension_n_m": 0.0005,
+    "baseline_junctional_tension_n_m": 0.0005,
+    "endpoint": {
+      "calcium_clearance_time_s": 20.0,
+      "calcium_current_fraction": 0.04,
+      "calcium_detection_limit_nm": 10.0,
+      "cell_volume_l": 2.1597e-12,
+      "channel_count": 4165.0,
+      "current_detection_limit_pa": 3.3,
+      "membrane_voltage_mv": -40.0,
+      "reversal_potential_mv": 0.0,
+      "single_channel_conductance_ps": 30.0
+    },
+    "exposure_area_m2": 1e-11,
+    "exposure_to_junctional_cross_fraction": 0.0,
+    "exposure_transfer_fraction": 1.0,
+    "gradmu_mv": -40.0,
+    "junctional_curvature_radius_m": 8e-07,
+    "maximum_pressure_mmhg": 70.0,
+    "normal": {
+      "fast_fraction": 0.5,
+      "fast_time_s": 0.05,
+      "instantaneous_modulus_pa": 3230.0,
+      "relaxed_modulus_pa": 710.0,
+      "slow_time_s": 0.15
+    },
+    "signed_force_area_m2": 1e-11,
+    "signed_force_transfer_fraction": 1.0,
+    "tangential": {
+      "fast_fraction": 0.5,
+      "fast_time_s": 0.05,
+      "instantaneous_modulus_pa": 1270.0,
+      "relaxed_modulus_pa": 400.0,
+      "slow_time_s": 0.15
+    },
+    "tangential_to_apical_cross_fraction": 0.0,
+    "wss_transfer_fraction": 1.0
+  }
+}
