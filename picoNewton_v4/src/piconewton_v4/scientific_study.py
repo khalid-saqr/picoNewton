@@ -226,10 +226,27 @@ def build_completion_assessment(
     clipping_absent = bool(primary_clip.empty or not primary_clip.clipping_present.any())
     structural = str(workflow_manifest.get("status", "")).startswith("passed")
 
+    def any_pass(name: str) -> bool:
+        selected = current_decisions[current_decisions.hypothesis == name]
+        return bool(not selected.empty and (selected.decision == "pass").any())
+
+    def all_pass_prefix(prefix: str) -> bool:
+        selected = current_decisions[current_decisions.hypothesis.str.startswith(prefix)]
+        return bool(not selected.empty and (selected.decision == "pass").all())
+
+    direct_distinction = any_pass("H3a")
+    matched_load_robustness = all_pass_prefix("H3a_")
+    held_out_surrogate = any_pass("H3b")
+    anisotropy_increment = any_pass("H4")
+
     if not structural:
         outcome = "failed_numerical_or_structural_validation"
     elif passes == 0:
         outcome = "negative_under_current_parameterization"
+    elif not direct_distinction or not matched_load_robustness or not held_out_surrogate:
+        outcome = "current_signal_not_independent_of_wss"
+    elif not anisotropy_increment:
+        outcome = "current_signal_not_attributable_to_anisotropy"
     elif not calibration_complete or not endpoint_calibrated:
         outcome = "current_signal_requires_independent_calibration"
     elif all_degenerate:
@@ -252,6 +269,10 @@ def build_completion_assessment(
             "workflow_structural_validation": structural,
             "raw_hydrodynamic_forcing_archived": bool(hydrodynamic_archive.get("array_count", 0)),
             "current_endpoint_has_predeclared_cross_artery_support": passes > 0,
+            "direct_wss_distinction_supported": direct_distinction,
+            "matched_load_controls_supported": matched_load_robustness,
+            "held_out_wss_surrogate_supported": held_out_surrogate,
+            "anisotropy_increment_supported": anisotropy_increment,
             "calibration_complete": calibration_complete,
             "endpoint_experimentally_calibrated": endpoint_calibrated,
             "signed_and_exposure_aggregate_outputs_distinguishable": not all_degenerate,
@@ -328,7 +349,11 @@ def run_scientific_study(
     produced = [path for path in output_root.rglob("*") if path.is_file()]
     manifest = {
         "workflow": "picoNewton_v4_scientific_study",
-        "status": "completed_with_claims_disabled",
+        "status": (
+            "completed_with_claims_disabled"
+            if assessment["gates"]["workflow_structural_validation"]
+            else "failed_numerical_or_structural_validation"
+        ),
         "completed_utc": datetime.now(timezone.utc).isoformat(),
         "profile": profile,
         "study_outcome": assessment["study_outcome"],
