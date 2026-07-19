@@ -66,10 +66,35 @@ def test_pressure_clipping_audit_and_negative_outcome():
             "calibration_audit": {"complete": False},
             "endpoint_reference": {"calibration_status": "literature_proxy"},
         },
-        current_decisions=pd.DataFrame({"decision": ["fail"]}),
+        current_decisions=pd.DataFrame({"hypothesis": ["H3a"], "decision": ["fail"]}),
         degeneracy=pd.DataFrame({"aggregate_degenerate": [True]}),
         clipping=clipping,
         hydrodynamic_archive={"array_count": 10},
     )
     assert assessment["study_outcome"] == "negative_under_current_parameterization"
     assert assessment["claims_enabled"] is False
+
+
+def test_positive_current_signal_must_survive_wss_controls():
+    decisions = pd.DataFrame(
+        {
+            "hypothesis": ["H3a", "H3a_rms_matched", "H3b", "H4"],
+            "decision": ["pass", "pass", "fail", "pass"],
+        }
+    )
+    clipping = pd.DataFrame(
+        {"pathway": ["zero"], "clipping_present": [False]}
+    )
+    assessment = build_completion_assessment(
+        workflow_manifest={
+            "status": "passed_structural_validation",
+            "calibration_audit": {"complete": True},
+            "endpoint_reference": {"calibration_status": "experimentally_calibrated"},
+        },
+        current_decisions=decisions,
+        degeneracy=pd.DataFrame({"aggregate_degenerate": [False]}),
+        clipping=clipping,
+        hydrodynamic_archive={"array_count": 10},
+    )
+    assert assessment["study_outcome"] == "current_signal_not_independent_of_wss"
+    assert assessment["gates"]["held_out_wss_surrogate_supported"] is False
