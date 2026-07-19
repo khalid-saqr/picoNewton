@@ -24,6 +24,7 @@ dev = [
 
 [project.scripts]
 piconewton-v4 = "piconewton_v4.cli:main"
+piconewton-v4-study = "piconewton_v4.scientific_study:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
