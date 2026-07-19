@@ -26,7 +26,7 @@ The notebook is distributed without saved outputs and is designed for a standard
 
 - mounts Google Drive;
 - creates a unique UTC-stamped directory under `MyDrive/picoNewton_v4_runtime/runs/`;
-- clones the repository, checks out `419892085a270b9d0999e2e692e6eefeb408cd81`, and verifies the resolved commit SHA;
+- clones the merged `main` branch and records the resolved commit SHA;
 - installs the package and development dependencies;
 - runs the complete package test suite;
 - solves the `full` numerical profile: radial order 150, 2,048 time points, and 256 near-wall nodes;
