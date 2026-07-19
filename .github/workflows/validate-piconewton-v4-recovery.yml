@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - agent/piconewton-v4-colab-recovery
+  pull_request:
+    branches:
+      - main
 
 jobs:
   execute-notebook:
