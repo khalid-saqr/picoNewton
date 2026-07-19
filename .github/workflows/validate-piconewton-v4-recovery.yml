@@ -5,9 +5,15 @@ on:
   push:
     branches:
       - agent/piconewton-v4-colab-recovery
+    paths-ignore:
+      - picoNewton_v4/NOTEBOOK_VALIDATION.json
+      - picoNewton_v4/NOTEBOOK_VALIDATION_ERROR.txt
   pull_request:
     branches:
       - main
+
+permissions:
+  contents: write
 
 jobs:
   execute-notebook:
@@ -18,43 +24,104 @@ jobs:
       PICONEWTON_LOCAL_ROOT: ${{ runner.temp }}/picoNewton_v4_work
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install notebook executor
         run: python -m pip install --upgrade pip nbformat nbclient ipykernel
       - name: Execute full-resolution notebook
+        id: execute
+        continue-on-error: true
         run: |
           python - <<'PY'
           from pathlib import Path
+          import traceback
           import nbformat
           from nbclient import NotebookClient
 
           path = Path('picoNewton_v4/notebooks/picoNewton_v4_colab.ipynb')
-          notebook = nbformat.read(path, as_version=4)
-          client = NotebookClient(
-              notebook,
-              timeout=7200,
-              kernel_name='python3',
-              allow_errors=False,
-              resources={'metadata': {'path': str(Path.cwd())}},
-          )
-          executed = client.execute()
           output = Path('picoNewton_v4/notebooks/picoNewton_v4_colab.executed.ipynb')
-          nbformat.write(executed, output)
-          print(output)
+          error_path = Path('picoNewton_v4/NOTEBOOK_VALIDATION_ERROR.txt')
+          try:
+              notebook = nbformat.read(path, as_version=4)
+              client = NotebookClient(
+                  notebook,
+                  timeout=7200,
+                  kernel_name='python3',
+                  allow_errors=False,
+                  resources={'metadata': {'path': str(Path.cwd())}},
+              )
+              executed = client.execute()
+              nbformat.write(executed, output)
+              error_path.unlink(missing_ok=True)
+              print(output)
+          except Exception:
+              error_path.write_text(traceback.format_exc(), encoding='utf-8')
+              raise
           PY
       - name: Confirm archived outputs
+        id: outputs
+        if: steps.execute.outcome == 'success'
+        continue-on-error: true
         run: |
-          find "$PICONEWTON_RUNTIME_ROOT" -maxdepth 5 -type f | sort
+          find "$PICONEWTON_RUNTIME_ROOT" -maxdepth 7 -type f | sort
           test -n "$(find "$PICONEWTON_RUNTIME_ROOT" -name run_manifest.json -print -quit)"
           test -n "$(find "$PICONEWTON_RUNTIME_ROOT" -name SHA256SUMS.json -print -quit)"
           test -n "$(find "$PICONEWTON_RUNTIME_ROOT" -name six_artery_summary.csv -print -quit)"
+      - name: Write validation record
+        if: always()
+        env:
+          EXECUTE_OUTCOME: ${{ steps.execute.outcome }}
+          OUTPUTS_OUTCOME: ${{ steps.outputs.outcome }}
+          VALIDATED_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          execute = os.environ.get('EXECUTE_OUTCOME', 'unknown')
+          outputs = os.environ.get('OUTPUTS_OUTCOME', 'unknown')
+          passed = execute == 'success' and outputs == 'success'
+          record = {
+              'passed': passed,
+              'execute_outcome': execute,
+              'output_contract_outcome': outputs,
+              'validated_commit': os.environ.get('VALIDATED_SHA'),
+              'github_run_id': os.environ.get('RUN_ID'),
+              'python': '3.12',
+              'profile': 'full',
+              'sensitivity_scan': True,
+              'validated_utc': datetime.now(timezone.utc).isoformat(),
+          }
+          Path('picoNewton_v4/NOTEBOOK_VALIDATION.json').write_text(
+              json.dumps(record, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+          )
+          print(json.dumps(record, indent=2, sort_keys=True))
+          PY
+      - name: Commit validation record
+        if: always() && github.event_name == 'push'
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add picoNewton_v4/NOTEBOOK_VALIDATION.json picoNewton_v4/NOTEBOOK_VALIDATION_ERROR.txt || true
+          if ! git diff --cached --quiet; then
+            git commit -m "Record v4 notebook validation result"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: piconewton-v4-recovery-validation
           path: |
             picoNewton_v4/notebooks/picoNewton_v4_colab.executed.ipynb
+            picoNewton_v4/NOTEBOOK_VALIDATION.json
+            picoNewton_v4/NOTEBOOK_VALIDATION_ERROR.txt
             ${{ runner.temp }}/picoNewton_v4_runtime
           if-no-files-found: warn
+      - name: Enforce success
+        if: steps.execute.outcome != 'success' || steps.outputs.outcome != 'success'
+        run: exit 1
