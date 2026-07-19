@@ -12,7 +12,7 @@ The notebook is the complete production workflow. Run all cells once from top to
 
 ## Resolved source and fixed numerical profile
 
-The notebook clones the repository, checks out the reviewed commit `419892085a270b9d0999e2e692e6eefeb408cd81`, verifies it, and records the resolved SHA in every run. The scientific calculation is fixed at the package `full` profile:
+The notebook clones the merged `main` branch and records the resolved commit SHA in every run. The scientific calculation is fixed at the package `full` profile:
 
 - radial order: 150;
 - cardiac-cycle time points: 2,048;
@@ -48,7 +48,7 @@ SHA256SUMS.json
 
 1. Mount Google Drive.
 2. Create local and persistent run directories.
-3. Clone the repository and check out `419892085a270b9d0999e2e692e6eefeb408cd81`.
+3. Clone the merged `main` branch and record its resolved commit.
 4. Install `picoNewton_v4` with development dependencies.
 5. Verify the package import path and run the complete test suite.
 6. Execute `scripts/run_colab_production.py`.
