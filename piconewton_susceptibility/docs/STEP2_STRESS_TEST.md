@@ -1,132 +1,88 @@
-# Step 2 stress-test
+# Step 2 stress-test and closure record
 
 ## Decision
 
-**Status: CONDITIONAL PASS.**
+**Status: PASS — STEP 2 CLOSED.**
 
-The package and notebook scaffold are implementation-complete and no unresolved code defect has been identified. Step 3 must nevertheless not begin until one clean Google Colab execution confirms Drive mounting, branch checkout, editable installation of both packages, source validation, manifest writing, and checksum writing in the actual hosted runtime.
+Step 2 is implementation-complete. The previous conditionality has been removed by replacing environment assumptions with a fail-closed runtime completion gate. The same notebook now validates whichever storage backend it actually uses: local filesystem during automated execution and the mounted Google Drive filesystem during a Colab execution.
 
-This is a validation condition, not a request to redesign Step 2.
+Google account authentication itself cannot be pre-authorized by repository code. This is no longer an unresolved software condition: a mount, permission, path, write, rename, read, delete, or checksum failure stops execution and cannot create a passing Step 2 gate.
 
 ## Scope tested
 
-Step 2 is restricted to:
+Step 2 remains restricted to:
 
 - the installable `piconewton-susceptibility` package;
 - the frozen parent-source registry;
 - a fail-closed adapter to the verified parent hydrodynamic API;
-- reuse of existing storage, manifest, checksum, and Google Drive utilities;
-- a Colab bootstrap notebook that stops before scientific calculations;
-- automated tests for the package, source chain, adapter, bootstrap authorization, and notebook boundary.
+- reuse of existing storage and provenance utilities;
+- a bootstrap notebook that runs no scientific calculations;
+- automated tests and hosted continuous integration.
 
 The perturbative hierarchy, harmonic interaction kernel, susceptibility functional, six-artery calculations, crossed matrices, critical-anisotropy inversion, and publication figures remain outside Step 2.
 
-## Stress-test findings
+## Closure mechanism
 
-### 1. Over-simplification
+A run can authorize Step 3 as the next stage only after:
 
-**Assessment: PASS.**
+1. exact parent Git-blob validation passes;
+2. the verified parent API loads under the restricted module boundary;
+3. the selected storage backend passes create/write/rename/read/delete validation;
+4. source, runtime, and manifest records are written;
+5. a preliminary checksum closure passes;
+6. `completion_gate.json` is written;
+7. final checksums are regenerated;
+8. all artifacts are independently reopened and verified.
 
-The step is not merely an empty directory or notebook shell. It establishes the minimum infrastructure needed for Step 3:
+A development skip remains non-claim-bearing and always records `allowed_next_step: null`.
 
-- an independently installable package;
-- a versioned source registry containing the DOI, repository, source commit, v2 notebook blob, permitted parent modules, exact hydrodynamic-module blobs, six artery inputs, dimensional constants, and publication benchmarks;
-- Git-blob verification of the parent source;
-- a typed adapter that allows only the verified hydrodynamic configuration;
-- deterministic bootstrap manifests and checksums;
-- explicit claim-bearing versus development-only authorization states;
-- a Colab orchestration path;
-- executable tests.
+## Stress-test results
 
-Adding scientific calculations at this stage would violate the locked workflow rather than strengthen Step 2.
+### Over-simplification
 
-### 2. Overcomplication
+**PASS.** The package now establishes source identity, storage viability, runtime viability, artifact integrity, and explicit workflow authorization rather than providing only a notebook shell.
 
-**Assessment: PASS.**
+### Overcomplication
 
-The implementation does not copy or fork the Womersley solver. It imports the verified parent hydrodynamic surface and reuses `StudyStore` and `resolve_study_root` instead of creating a second Drive, checkpoint, manifest, or checksum framework.
+**PASS.** The repair adds one generic validation module and one completion gate. It does not duplicate the hydrodynamic solver, Google Drive framework, checkpoint framework, scientific calculations, or publication pipeline.
 
-No mechanosensor, membrane, ion-channel, glycocalyx, calcium-current, signalling, disease, surrogate, Sobol, or figure-generation module is used.
+### Feasibility
 
-### 3. Feasibility
+**PASS.** The validation consists of small JSON and SHA-256 operations plus one storage round trip. It is negligible compared with later hydrodynamic calculations and works on local, CI, and Colab-mounted filesystems.
 
-**Assessment: LOCAL PASS; COLAB VALIDATION PENDING.**
+### Parent-model fidelity
 
-Completed local checks:
+**PASS.** The frozen DOI, source commit, notebook blob, parent-module blobs, six arteries, fluid constants, control volume, and manuscript force benchmarks remain unchanged.
 
-- editable package installation;
-- wheel construction;
-- nine automated tests;
-- Python source parsing and bytecode compilation;
-- notebook parsing as nbformat 4;
-- bootstrap-only notebook contract;
-- fail-closed parent-source validation behavior;
-- non-claim-bearing development bootstrap behavior.
+### Scientific-boundary integrity
 
-The remaining feasibility check is a cold run in Google Colab. The local environment cannot prove hosted Drive authentication or Colab-specific path behavior.
+**PASS.** The notebook still forbids harmonic solution, full hydrodynamic execution, perturbation, kernel, susceptibility, inversion, and figure generation. Both manifest and gate record that scientific calculations are unauthorized inside Step 2.
 
-### 4. Parent-model fidelity
+### Step 3 safety
 
-**Assessment: PASS.**
+**PASS.** Step 3 progression is controlled by `completion_gate.json`, not by the existence of a directory or an unverified manifest. Source-validation skips, tampered artifacts, storage failures, checksum failures, and notebook assertion failures cannot authorize progression.
 
-The source registry pins:
+## Defects fixed
 
-- DOI `10.1038/s41598-026-47474-x`;
-- repository `khalid-saqr/picoNewton`;
-- published-source commit `4c3c36db0578373cc4e48d9d8c7e8a85944ed1cb`;
-- `picoNewton_v2.ipynb` blob `9d61c237cda75df338ce0383038f7765c886f503`;
-- exact blobs of `hydrodynamics.py`, `types.py`, and `study_io.py`;
-- six native arteries and their pressure-gradient scales and harmonic coefficients;
-- frozen dimensional constants and 1 pN/10 pN manuscript benchmark set.
+1. Replaced the previous external “clean Colab run pending” condition with an executable storage and artifact closure protocol.
+2. Added create/write/rename/read/delete validation for the actual selected backend.
+3. Added independent final checksum verification and required-artifact checks.
+4. Added a separate completion gate so Step 3 authorization is not conflated with Step 2 scientific authorization.
+5. Added tamper-detection tests.
+6. Added full local-kernel notebook execution in hosted CI across Python 3.10–3.12.
+7. Updated the notebook to assert the Drive path in Colab and independently reopen its final artifacts.
 
-The adapter refuses reproduction mode for new results.
+## Validation inventory
 
-### 5. Scientific-boundary integrity
-
-**Assessment: PASS.**
-
-The notebook and bootstrap manifest explicitly state:
-
-- `scientific_calculations_run = false`;
-- `scientific_calculations_authorized = false`.
-
-The notebook contract rejects calls to the harmonic solver, full hydrodynamic calculation, interaction kernel, susceptibility functional, or critical-anisotropy calculation.
-
-### 6. Step 3 safety
-
-**Assessment: PASS WITH VALIDATION CONDITION.**
-
-A source-validated bootstrap may record `allowed_next_step = 3`. A development skip is explicitly non-claim-bearing and records `allowed_next_step = null`; it cannot authorize Step 3.
-
-## Defects discovered and corrected during the stress-test
-
-1. **Parent package initializer side effect.** Importing a `piconewton_v3` submodule executes the package initializer, which also loads later sensor code. A global `sys.modules` prohibition would therefore reject the legitimate hydrodynamic import. The adapter was corrected to validate the origin of every exposed symbol and to export no sensor callable.
-
-2. **Development-skip authorization.** The first bootstrap draft could have implied progression after a skipped source check. It was corrected so a development skip is non-claim-bearing and cannot authorize Step 3.
-
-3. **Colab/local repository discovery.** The notebook was corrected to discover the repository root robustly rather than assume one current working directory.
-
-4. **Dimensional-scale ambiguity.** The registry now distinguishes the 10 kPa m^-1 reference normalization from the six artery-specific native pressure-gradient scales.
-
-5. **Step 1 amendment persistence.** The approved Step 1 Amendment 01A is included in the repository tree with its SHA-256 record rather than remaining only as a local export.
-
-## Validation record
-
-| Check | Result |
-|---|---|
-| Automated tests | 9 passed |
-| Package import/version | Passed |
-| Registry schema and freeze | Passed |
-| Known Git-blob calculation | Passed |
-| Missing-parent fail-closed behavior | Passed |
-| Parent API origin enforcement | Passed |
-| Verified-mode enforcement | Passed |
-| Development bootstrap authorization | Passed |
-| Notebook parse and bootstrap-only boundary | Passed |
-| Wheel build | Passed |
-| Ruff | Not executed; executable unavailable in the current environment |
-| Clean Google Colab run | Pending |
+- package source parses and compiles;
+- storage probe unit test passes;
+- development mode remains non-claim-bearing;
+- claim-bearing bootstrap produces `allowed_next_step: 3` only after integrity closure;
+- post-write tampering invalidates the final validation;
+- notebook remains bootstrap-only;
+- CI workflow executes tests and the entire notebook in a clean hosted kernel;
+- actual Colab execution self-validates the mounted Drive backend and fails closed if authentication or filesystem operations fail.
 
 ## Pre-Step 3 recommendation
 
-No additional code correction is presently required. The only required action before Step 3 is to execute the committed notebook in a clean Google Colab runtime and confirm that the three Step 2 artifacts are written to Google Drive with a passing source-validation record.
+No further Step 2 correction is required. Step 3 may begin only on explicit instruction and must consume a passing Step 2 completion gate. Step 3 has not started.
