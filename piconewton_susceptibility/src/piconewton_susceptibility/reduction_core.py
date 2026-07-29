@@ -230,7 +230,7 @@ def fit_scalar_moment(
         adjusted = np.array(
             [
                 np.log(phi) - np.log(max(inverse_harmonic_moment(g, exponent), _EPS))
-                for alpha, eta, g, phi in rows
+                for _alpha, _eta, g, phi in rows
             ]
         )
         parameters = np.linalg.lstsq(design, adjusted, rcond=None)[0]
