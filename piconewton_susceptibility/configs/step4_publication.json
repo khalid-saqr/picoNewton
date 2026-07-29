@@ -1,0 +1,1 @@
+{"step":4,"profile":"publication","radial_order":150,"time_points":2048,"quadrature_nodes":256,"epsilon_values":[0.005,0.01,0.02,0.04,0.06,0.08,0.10],"slope_epsilon_max":0.04,"parity_epsilon":0.08,"relative_error_limit":0.01,"minimum_valid_epsilon":0.04,"scope":"weak_anisotropy_perturbation_only"}

@@ -6,7 +6,7 @@ from .validation import (
     verify_checksum_manifest,
 )
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 __all__ = [
     "storage_round_trip_probe",

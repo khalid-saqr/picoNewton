@@ -1,0 +1,1 @@
+{"step":4,"profile":"quick","radial_order":60,"time_points":512,"quadrature_nodes":96,"epsilon_values":[0.005,0.01,0.02,0.04,0.06,0.08,0.10],"slope_epsilon_max":0.04,"parity_epsilon":0.08,"relative_error_limit":0.01,"minimum_valid_epsilon":0.04,"scope":"diagnostic_only"}
