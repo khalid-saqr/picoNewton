@@ -6,6 +6,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from piconewton_susceptibility.bootstrap import BootstrapConfig, bootstrap_environment
+from piconewton_susceptibility.validation import validate_bootstrap_artifacts
 
 
 class FakeStore:
@@ -34,15 +35,18 @@ class FakeStore:
         return output
 
 
-def test_development_bootstrap_is_explicitly_non_claim_bearing(
-    tmp_path: Path, monkeypatch
-) -> None:
-    fake_api = SimpleNamespace(
+def _fake_api() -> SimpleNamespace:
+    return SimpleNamespace(
         StudyStore=FakeStore,
         resolve_study_root=lambda **kwargs: (Path(kwargs["local_root"]), "local"),
     )
+
+
+def test_development_bootstrap_is_explicitly_non_claim_bearing(
+    tmp_path: Path, monkeypatch
+) -> None:
     monkeypatch.setattr(
-        "piconewton_susceptibility.bootstrap.load_parent_api", lambda registry: fake_api
+        "piconewton_susceptibility.bootstrap.load_parent_api", lambda registry: _fake_api()
     )
     result = bootstrap_environment(
         BootstrapConfig(
@@ -53,9 +57,44 @@ def test_development_bootstrap_is_explicitly_non_claim_bearing(
         )
     )
     manifest = result["manifest"]
+    gate = result["completion_gate"]
     assert manifest["claim_bearing"] is False
     assert manifest["scientific_calculations_run"] is False
     assert manifest["scientific_calculations_authorized"] is False
-    assert manifest["allowed_next_step"] is None
-    assert Path(result["manifest_path"]).is_file()
-    assert Path(result["checksums_path"]).is_file()
+    assert gate["passed"] is False
+    assert gate["allowed_next_step"] is None
+    assert result["validation"]["passed"] is True
+
+
+def test_claim_bearing_bootstrap_requires_final_integrity_gate(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(
+        "piconewton_susceptibility.bootstrap.load_parent_api", lambda registry: _fake_api()
+    )
+    monkeypatch.setattr(
+        "piconewton_susceptibility.bootstrap.validate_parent_source",
+        lambda repo_root, registry: {
+            "repository_root": str(repo_root),
+            "registry_sha256": registry.sha256,
+            "passed": True,
+            "files": [],
+        },
+    )
+    result = bootstrap_environment(
+        BootstrapConfig(
+            repo_root=tmp_path,
+            storage_mode="local",
+            local_root=tmp_path / "outputs",
+        )
+    )
+    assert result["manifest"]["claim_bearing"] is True
+    assert result["completion_gate"]["passed"] is True
+    assert result["completion_gate"]["allowed_next_step"] == 3
+    assert result["validation"]["passed"] is True
+
+    runtime_path = Path(result["runtime_validation_path"])
+    runtime_path.write_text("{}", encoding="utf-8")
+    validation = validate_bootstrap_artifacts(
+        result["bootstrap_root"], expected_storage_mode="local"
+    )
+    assert validation["passed"] is False
+    assert validation["checksum_validation"]["passed"] is False
