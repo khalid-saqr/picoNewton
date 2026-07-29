@@ -4,7 +4,7 @@
 
 **PASS — proceed to Step 4.**
 
-Step 3 is scientifically and computationally closed after two defects found during stress-testing were corrected: isotropic exposure is now exported explicitly, and convergence is evaluated on the anisotropic excess as well as the total force.
+Step 3 is scientifically and computationally closed after three defects found during stress-testing were corrected: isotropic exposure is exported explicitly, convergence is evaluated on the anisotropic excess as well as the total force, and Step 3 is no longer imported eagerly by the package initializer.
 
 ## Over-simplification
 
@@ -14,7 +14,7 @@ It does not attempt the Step 4 perturbation hierarchy prematurely.
 
 ## Overcomplication
 
-**PASS.** No solver is copied into the successor package. The Step 3 layer calls the frozen parent hydrodynamic interface and adds only orchestration, metrics, convergence, exports, gates, and lineage control.
+**PASS.** No solver is copied into the successor package. The Step 3 layer calls the frozen parent hydrodynamic interface and adds only orchestration, metrics, convergence, exports, gates, and lineage control. Step 3 is accessed through its dedicated `continuity` module and CLI, so Step 2 bootstrap imports remain isolated from the later scientific layer.
 
 No mechanosensor, membrane, ion-channel, compliant-wall, geometry, Sobol, machine-learning, kernel, susceptibility, or threshold-inversion calculation is included.
 
@@ -59,6 +59,12 @@ Step 3 exports:
 - radial, temporal, and quadrature convergence;
 - checksummed waveform arrays and tables;
 - a fail-closed Step 3 gate.
+
+## Defects corrected during stress-testing
+
+1. The first draft omitted an explicit isotropic exposure export. It is now retained in the summary and waveform archive.
+2. The first convergence gate tested the much larger total force but not the small constitutive excess. Both are now independently required to converge within 1%.
+3. The first package initializer imported Step 3 eagerly, which could load the broader parent package during a Step 2 bootstrap import. Step 3 is now loaded only through its dedicated module or CLI.
 
 ## Residual risks
 
