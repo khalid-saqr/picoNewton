@@ -165,8 +165,9 @@ def validate_bootstrap_artifacts(
         ),
         "storage_probe_passed": runtime.get("storage_round_trip", {}).get("passed") is True,
         "runtime_validation_passed": runtime.get("passed") is True,
-        "source_state_consistent": manifest.get("parent_source_validation_passed")
-        is bool(source.get("passed")),
+        "source_state_consistent": (
+            manifest.get("parent_source_validation_passed") is bool(source.get("passed"))
+        ),
         "gate_integrity_precheck_passed": gate.get("integrity_precheck_passed") is True,
         "final_checksums_passed": checksums.get("passed") is True,
     }
