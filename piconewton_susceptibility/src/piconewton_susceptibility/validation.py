@@ -86,7 +86,8 @@ def verify_checksum_manifest(
             "passed": False,
         }
 
-    for line_number, raw_line in enumerate(checksum_path.read_text(encoding="utf-8").splitlines(), 1):
+    checksum_lines = checksum_path.read_text(encoding="utf-8").splitlines()
+    for line_number, raw_line in enumerate(checksum_lines, 1):
         if not raw_line.strip():
             continue
         try:
