@@ -1,0 +1,59 @@
+name: susceptibility-step7
+
+on:
+  push:
+    branches:
+      - successor/scirep-waveform-susceptibility
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step7.yml"
+  pull_request:
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step7.yml"
+
+jobs:
+  validate-step7:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install parent and successor packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "./picoNewton_v3"
+          python -m pip install -e "./piconewton_susceptibility[dev]"
+      - name: Static and focused tests
+        run: |
+          ruff check piconewton_susceptibility
+          python -m compileall -q piconewton_susceptibility/src piconewton_susceptibility/tests
+          pytest piconewton_susceptibility/tests/test_step7_core.py \
+                 piconewton_susceptibility/tests/test_step7_workflow_fixture.py \
+                 piconewton_susceptibility/tests/test_step7_notebook.py \
+                 piconewton_susceptibility/tests/test_step7_scope.py
+      - name: Generate Steps 2–6 evidence
+        run: |
+          piconewton-susceptibility-bootstrap --repo-root . --storage local --local-root ./piconewton_susceptibility_outputs
+          piconewton-susceptibility-step3 --step2-root ./piconewton_susceptibility_outputs/bootstrap/step2 --output ./piconewton_susceptibility_outputs/step3_parent_continuity --profile publication
+          piconewton-susceptibility-step4 --step3-root ./piconewton_susceptibility_outputs/step3_parent_continuity --output ./piconewton_susceptibility_outputs/step4_perturbation --profile publication
+          piconewton-susceptibility-step5 --step4-root ./piconewton_susceptibility_outputs/step4_perturbation --output ./piconewton_susceptibility_outputs/step5_harmonic_kernel --profile publication
+          piconewton-susceptibility-step6 --step5-root ./piconewton_susceptibility_outputs/step5_harmonic_kernel --step4-root ./piconewton_susceptibility_outputs/step4_perturbation --output ./piconewton_susceptibility_outputs/step6_susceptibility --profile publication
+      - name: Execute Step 7 publication profile
+        run: |
+          piconewton-susceptibility-step7 --step6-root ./piconewton_susceptibility_outputs/step6_susceptibility --output ./piconewton_susceptibility_outputs/step7_waveform_experiments --profile publication
+      - name: Upload Step 7 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: step7-validation-py${{ matrix.python-version }}
+          path: piconewton_susceptibility_outputs/step7_waveform_experiments/
+          if-no-files-found: error
