@@ -1,16 +1,22 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "step": 2,
   "branch": "successor/scirep-waveform-susceptibility",
   "storage": {
     "mode": "auto",
     "drive_subdir": "MyDrive/picoNewton_susceptibility",
-    "local_root": "./piconewton_susceptibility_outputs"
+    "local_root": "./piconewton_susceptibility_outputs",
+    "round_trip_validation_required": true
   },
   "source_validation": {
     "required": true,
     "development_skip_allowed": true,
     "claim_bearing_when_skipped": false
+  },
+  "closure": {
+    "final_checksum_validation_required": true,
+    "independent_artifact_reopen_required": true,
+    "completion_gate": "bootstrap/step2/completion_gate.json"
   },
   "scientific_calculations_authorized": false
 }
