@@ -1,0 +1,1 @@
+{"step":3,"profile":"quick","radial_order":80,"time_points":512,"quadrature_nodes":96,"beta":0.1,"gamma":0.1,"delta":1.0,"radial_checks":[60,100],"time_checks":[256,1024],"quadrature_checks":[48,192],"scope":"parent_continuity_only"}

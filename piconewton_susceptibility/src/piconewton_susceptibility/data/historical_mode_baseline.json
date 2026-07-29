@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "source_commit": "4c3c36db0578373cc4e48d9d8c7e8a85944ed1cb",
+  "solver_mode": "reproduction",
+  "radial_order": 150,
+  "time_points": 2048,
+  "quadrature_nodes": 256,
+  "beta": 0.1,
+  "gamma": 0.1,
+  "delta": 1.0,
+  "relative_tolerance": 1e-8,
+  "records": [
+    {"artery_id":"aortic_root","signed_rms_n":1.117671670670992e-11,"signed_peak_abs_n":1.7042637804356112e-11,"exposure_rms_n":1.117671705541547e-11,"exposure_peak_n":1.704263780435774e-11},
+    {"artery_id":"thoracic_aorta","signed_rms_n":6.709304929969661e-12,"signed_peak_abs_n":1.006649183749941e-11,"exposure_rms_n":6.709305120802429e-12,"exposure_peak_n":1.006649183749941e-11},
+    {"artery_id":"femoral","signed_rms_n":5.179886062441813e-12,"signed_peak_abs_n":7.688480431422733e-12,"exposure_rms_n":5.179886188149718e-12,"exposure_peak_n":7.688480431422733e-12},
+    {"artery_id":"carotid","signed_rms_n":6.215980308711704e-12,"signed_peak_abs_n":9.320333756309078e-12,"exposure_rms_n":6.215980473027679e-12,"exposure_peak_n":9.320333756310698e-12},
+    {"artery_id":"iliac","signed_rms_n":4.273422978322819e-12,"signed_peak_abs_n":6.247507821295108e-12,"exposure_rms_n":4.2734230825625686e-12,"exposure_peak_n":6.247507821297304e-12},
+    {"artery_id":"brachial","signed_rms_n":2.3873598402384343e-12,"signed_peak_abs_n":3.589585490133779e-12,"exposure_rms_n":2.38735990973146e-12,"exposure_peak_n":3.589585490133779e-12}
+  ]
+}

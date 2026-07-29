@@ -1,6 +1,13 @@
-import piconewton_susceptibility as package
+from piconewton_susceptibility import (
+    Step3Config,
+    __version__,
+    run_parent_continuity,
+    validate_bootstrap_artifacts,
+)
 
 
-def test_package_import_and_version() -> None:
-    assert package.__version__ == "0.1.0"
-    assert package.load_source_registry().data["schema_version"] == "1.0.0"
+def test_package_public_api():
+    assert __version__ == "0.3.0"
+    assert Step3Config().profile == "publication"
+    assert callable(run_parent_continuity)
+    assert callable(validate_bootstrap_artifacts)

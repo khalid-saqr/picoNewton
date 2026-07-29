@@ -1,0 +1,60 @@
+name: susceptibility-step3
+
+on:
+  push:
+    branches:
+      - successor/scirep-waveform-susceptibility
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step3.yml"
+  pull_request:
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step3.yml"
+
+jobs:
+  validate-step3:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install parent and successor packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "./picoNewton_v3"
+          python -m pip install -e "./piconewton_susceptibility[dev]"
+      - name: Static checks
+        run: |
+          ruff check piconewton_susceptibility
+          python -m compileall -q piconewton_susceptibility/src piconewton_susceptibility/tests
+      - name: Unit and publication-resolution tests
+        run: pytest piconewton_susceptibility/tests
+      - name: Generate a real Step 2 completion gate
+        run: |
+          piconewton-susceptibility-bootstrap \
+            --repo-root . \
+            --storage local \
+            --local-root ./piconewton_susceptibility_outputs
+      - name: Execute Step 3 publication profile
+        run: |
+          piconewton-susceptibility-step3 \
+            --step2-root ./piconewton_susceptibility_outputs/bootstrap/step2 \
+            --output ./piconewton_susceptibility_outputs/step3_parent_continuity \
+            --profile publication
+      - name: Upload Step 3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: step3-validation-py${{ matrix.python-version }}
+          path: |
+            piconewton_susceptibility_outputs/step3_parent_continuity/
+          if-no-files-found: error

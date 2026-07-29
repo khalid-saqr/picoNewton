@@ -1,7 +1,18 @@
-"""Infrastructure for the Scientific Reports waveform-susceptibility successor."""
+"""Scientific Reports waveform-susceptibility successor package."""
 
-from .source_registry import SourceRegistry, load_source_registry
-from .validation import validate_bootstrap_artifacts
+from .continuity import Step3Config, run_parent_continuity
+from .validation import (
+    storage_round_trip_probe,
+    validate_bootstrap_artifacts,
+    verify_checksum_manifest,
+)
 
-__all__ = ["SourceRegistry", "load_source_registry", "validate_bootstrap_artifacts"]
-__version__ = "0.1.1"
+__version__ = "0.3.0"
+
+__all__ = [
+    "Step3Config",
+    "run_parent_continuity",
+    "storage_round_trip_probe",
+    "validate_bootstrap_artifacts",
+    "verify_checksum_manifest",
+]
