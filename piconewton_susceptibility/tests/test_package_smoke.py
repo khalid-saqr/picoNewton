@@ -5,5 +5,5 @@ from piconewton_susceptibility import (
 
 
 def test_package_public_api():
-    assert __version__ == "0.6.0"
+    assert __version__ == "0.7.0"
     assert callable(validate_bootstrap_artifacts)
