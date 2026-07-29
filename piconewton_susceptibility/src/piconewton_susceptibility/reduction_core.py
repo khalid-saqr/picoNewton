@@ -139,7 +139,7 @@ def waveform_catalog(config: Step8Config) -> list[dict[str, Any]]:
         magnitude = np.abs(np.asarray(case.harmonic_coefficients, dtype=complex))
         rows.append(
             {
-                "waveform_id": f"phase_{case.artery_id}",
+                "waveform_id": f"phase_{case.artery_id}_common_pi4",
                 "family": "phase_challenge",
                 "source_artery": case.artery_id,
                 "coefficients": magnitude * np.exp(1j * np.pi / 4.0),
@@ -203,10 +203,10 @@ def universal_kernel(kernels: Iterable[np.ndarray]) -> np.ndarray:
 def truncated_kernel(kernel: np.ndarray, rank: int) -> tuple[np.ndarray, np.ndarray, float]:
     if rank < 1 or rank > 3:
         raise ValueError("rank must lie in 1..3")
-    u, singul_values, vh = np.linalg.svd(np.asarray(kernel, dtype=complex), full_matrices=False)
+    u, singular_values, vh = np.linalg.svd(np.asarray(kernel, dtype=complex), full_matrices=False)
     reduced = (u[:, :rank] * singular_values[:rank]) @ vh[:rank, :]
     retained = float(
-        np.sum(singul_values[:rank] ** 2) / max(np.sum(singular_values**2), _EPS)
+        np.sum(singular_values[:rank] ** 2) / max(np.sum(singular_values**2), _EPS)
     )
     return reduced, singular_values, retained
 

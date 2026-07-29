@@ -1,0 +1,1 @@
+{"profile":"quick","random_seed":20260730,"phase_scrambles":4,"candidate_ranks":[1,2,3],"retained_energy_min":0.999,"median_relative_error_max":0.05,"p90_relative_error_max":0.12,"maximum_relative_error_max":0.20,"family_median_relative_error_max":0.05,"family_maximum_relative_error_max":0.20,"ranking_spearman_min":0.95,"exponent_span_max":0.08}
