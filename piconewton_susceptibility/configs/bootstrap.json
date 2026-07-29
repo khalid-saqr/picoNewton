@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "step": 2,
+  "branch": "successor/scirep-waveform-susceptibility",
+  "storage": {
+    "mode": "auto",
+    "drive_subdir": "MyDrive/picoNewton_susceptibility",
+    "local_root": "./piconewton_susceptibility_outputs"
+  },
+  "source_validation": {
+    "required": true,
+    "development_skip_allowed": true,
+    "claim_bearing_when_skipped": false
+  },
+  "scientific_calculations_authorized": false
+}

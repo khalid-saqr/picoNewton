@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "piconewton-susceptibility"
+version = "0.1.0"
+description = "Waveform-susceptibility successor workflow for anisotropic Womersley flow"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Khalid M. Saqr"}]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.0",
+  "nbformat>=5.9"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+piconewton-susceptibility-bootstrap = "piconewton_susceptibility.bootstrap:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+piconewton_susceptibility = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]

@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "publication": {
+    "title": "A transverse picoNewton force revealed in anisotropic Womersley flow",
+    "author": "Khalid M. Saqr",
+    "journal": "Scientific Reports",
+    "volume": "16",
+    "article": "12584",
+    "year": 2026,
+    "doi": "10.1038/s41598-026-47474-x"
+  },
+  "repository": {
+    "full_name": "khalid-saqr/picoNewton",
+    "published_source_commit": "4c3c36db0578373cc4e48d9d8c7e8a85944ed1cb",
+    "successor_branch": "successor/scirep-waveform-susceptibility"
+  },
+  "canonical_parent_artifact": {
+    "path": "picoNewton_v2.ipynb",
+    "git_blob_sha": "9d61c237cda75df338ce0383038f7765c886f503"
+  },
+  "verified_parent_interface": {
+    "distribution": "piconewton-v3",
+    "package_version": "0.1.0",
+    "solver_mode": "verified",
+    "allowed_modules": [
+      "piconewton_v3.hydrodynamics",
+      "piconewton_v3.types",
+      "piconewton_v3.study_io"
+    ],
+    "forbidden_module_prefixes": [
+      "piconewton_v3.sensor",
+      "piconewton_v3.controls",
+      "piconewton_v3.design",
+      "piconewton_v3.gates",
+      "piconewton_v3.figures_export"
+    ],
+    "files": [
+      {
+        "path": "picoNewton_v3/src/piconewton_v3/hydrodynamics.py",
+        "git_blob_sha": "36c29e8a582e554386a9205783c429d68ff59bf0"
+      },
+      {
+        "path": "picoNewton_v3/src/piconewton_v3/types.py",
+        "git_blob_sha": "8e9b0a24d26b070bc121f57fb60d7abeea71bbe5"
+      },
+      {
+        "path": "picoNewton_v3/src/piconewton_v3/study_io.py",
+        "git_blob_sha": "d13989f7fda3b1bae92c71d168a1654a5441cfd0"
+      }
+    ]
+  },
+  "frozen_dimensional_constants": {
+    "density_kg_m3": 1060.0,
+    "kinematic_viscosity_m2_s": 3.5e-06,
+    "fundamental_frequency_hz": 1.2,
+    "endothelial_area_m2": 1e-10,
+    "endothelial_volume_m3": 1e-15,
+    "near_wall_depth_m": 1e-05,
+    "publication_force_benchmarks_n": [
+      1e-12,
+      1e-11
+    ],
+    "reference_pressure_gradient_scale_pa_per_m": 10000.0
+  },
+  "step2_boundary": {
+    "scientific_calculations_authorized": false,
+    "allowed_outputs": [
+      "bootstrap_manifest.json",
+      "source_validation.json",
+      "checksums.sha256"
+    ]
+  },
+  "frozen_artery_registry": [
+    {
+      "artery_id": "aortic_root",
+      "name": "Aortic Root",
+      "radius_m": 0.015,
+      "womersley_alpha": 22.03,
+      "native_pressure_gradient_scale_pa_per_m": 9000.0,
+      "harmonic_coefficients": [1.0, 0.82, 0.54, 0.33, 0.24, 0.17]
+    },
+    {
+      "artery_id": "thoracic_aorta",
+      "name": "Thoracic Aorta",
+      "radius_m": 0.012,
+      "womersley_alpha": 17.62,
+      "native_pressure_gradient_scale_pa_per_m": 7000.0,
+      "harmonic_coefficients": [1.0, 0.76, 0.45, 0.28, 0.2, 0.12]
+    },
+    {
+      "artery_id": "femoral",
+      "name": "Femoral",
+      "radius_m": 0.004,
+      "womersley_alpha": 5.87,
+      "native_pressure_gradient_scale_pa_per_m": 6000.0,
+      "harmonic_coefficients": [1.0, 0.58, 0.1, -0.17, 0.05, 0.04]
+    },
+    {
+      "artery_id": "carotid",
+      "name": "Carotid",
+      "radius_m": 0.0035,
+      "womersley_alpha": 5.14,
+      "native_pressure_gradient_scale_pa_per_m": 6500.0,
+      "harmonic_coefficients": [1.0, 0.63, 0.31, 0.15, 0.1, 0.06]
+    },
+    {
+      "artery_id": "iliac",
+      "name": "Iliac",
+      "radius_m": 0.0045,
+      "womersley_alpha": 6.61,
+      "native_pressure_gradient_scale_pa_per_m": 5500.0,
+      "harmonic_coefficients": [1.0, 0.51, 0.12, -0.11, 0.05, 0.03]
+    },
+    {
+      "artery_id": "brachial",
+      "name": "Brachial",
+      "radius_m": 0.002,
+      "womersley_alpha": 2.94,
+      "native_pressure_gradient_scale_pa_per_m": 4000.0,
+      "harmonic_coefficients": [1.0, 0.49, 0.16, -0.05, 0.02, 0.01]
+    }
+  ]
+}
