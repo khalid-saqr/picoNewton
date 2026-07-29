@@ -4,7 +4,11 @@ import nbformat
 
 
 def test_colab_notebook_is_bootstrap_only_and_self_validating() -> None:
-    path = Path(__file__).resolve().parents[1] / "notebooks" / "scirep_waveform_susceptibility_colab.ipynb"
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "notebooks"
+        / "scirep_waveform_susceptibility_colab.ipynb"
+    )
     notebook = nbformat.read(path, as_version=4)
     source = "\n".join("".join(cell.source) for cell in notebook.cells)
     assert "drive.mount" in source
