@@ -173,7 +173,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--repo-root", type=Path, required=True)
     parser.add_argument("--storage", choices=["auto", "drive", "local"], default="auto")
     parser.add_argument("--drive-subdir", default="MyDrive/picoNewton_susceptibility")
-    parser.add_argument("--local-root", type=Path, default=Path("./piconewton_susceptibility_outputs"))
+    parser.add_argument(
+        "--local-root",
+        type=Path,
+        default=Path("./piconewton_susceptibility_outputs"),
+    )
     parser.add_argument(
         "--development-skip-parent-validation",
         action="store_true",
