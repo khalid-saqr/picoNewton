@@ -1,0 +1,63 @@
+name: susceptibility-step4
+
+on:
+  push:
+    branches:
+      - successor/scirep-waveform-susceptibility
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step4.yml"
+  pull_request:
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step4.yml"
+
+jobs:
+  validate-step4:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install parent and successor packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "./picoNewton_v3"
+          python -m pip install -e "./piconewton_susceptibility[dev]"
+      - name: Static checks
+        run: |
+          ruff check piconewton_susceptibility
+          python -m compileall -q piconewton_susceptibility/src piconewton_susceptibility/tests
+      - name: Unit tests
+        run: pytest piconewton_susceptibility/tests
+      - name: Generate Step 2 and Step 3 evidence
+        run: |
+          piconewton-susceptibility-bootstrap \
+            --repo-root . \
+            --storage local \
+            --local-root ./piconewton_susceptibility_outputs
+          piconewton-susceptibility-step3 \
+            --step2-root ./piconewton_susceptibility_outputs/bootstrap/step2 \
+            --output ./piconewton_susceptibility_outputs/step3_parent_continuity \
+            --profile publication
+      - name: Execute Step 4 publication profile
+        run: |
+          piconewton-susceptibility-step4 \
+            --step3-root ./piconewton_susceptibility_outputs/step3_parent_continuity \
+            --output ./piconewton_susceptibility_outputs/step4_perturbation \
+            --profile publication
+      - name: Upload Step 4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: step4-validation-py${{ matrix.python-version }}
+          path: piconewton_susceptibility_outputs/step4_perturbation/
+          if-no-files-found: error
