@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "piconewton-susceptibility"
-version = "0.1.0"
+version = "0.1.1"
 description = "Waveform-susceptibility successor workflow for anisotropic Womersley flow"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.6"]
+dev = ["pytest>=8", "ruff>=0.6", "nbclient>=0.9", "ipykernel>=6.29"]
 
 [project.scripts]
 piconewton-susceptibility-bootstrap = "piconewton_susceptibility.bootstrap:main"
