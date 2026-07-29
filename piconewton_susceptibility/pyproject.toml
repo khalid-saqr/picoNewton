@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "piconewton-susceptibility"
-version = "0.5.0"
+version = "0.6.0"
 description = "Waveform-susceptibility successor for anisotropic Womersley flow"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -28,6 +28,7 @@ piconewton-susceptibility-bootstrap = "piconewton_susceptibility.bootstrap:main"
 piconewton-susceptibility-step3 = "piconewton_susceptibility.cli:main"
 piconewton-susceptibility-step4 = "piconewton_susceptibility.step4_cli:main"
 piconewton-susceptibility-step5 = "piconewton_susceptibility.step5_cli:main"
+piconewton-susceptibility-step6 = "piconewton_susceptibility.step6_cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

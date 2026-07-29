@@ -1,0 +1,1 @@
+{"profile":"publication","radial_order":150,"time_points":2048,"quadrature_nodes":256,"validation_epsilons":[0.04,0.08,0.1],"inversion_verification_epsilons":[0.04,0.08],"force_benchmarks_pn":[1.0,10.0],"pressure_scale_factors":[0.5,2.0],"exact_validation_relative_limit":0.01,"inverse_estimate_relative_limit":0.005,"cross_environment_exact_tolerance":1e-08}

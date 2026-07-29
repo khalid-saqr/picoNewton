@@ -1,0 +1,1 @@
+{"profile":"quick","radial_order":60,"time_points":512,"quadrature_nodes":96,"validation_epsilons":[0.04,0.08],"inversion_verification_epsilons":[0.04],"force_benchmarks_pn":[1.0,10.0],"pressure_scale_factors":[0.5,2.0],"cross_environment_exact_tolerance":1e-08}
