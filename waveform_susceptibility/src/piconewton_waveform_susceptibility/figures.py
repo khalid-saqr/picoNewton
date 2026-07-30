@@ -6,9 +6,9 @@ from typing import Iterable
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm, Normalize, TwoSlopeNorm
 import numpy as np
 import pandas as pd
+from matplotlib.colors import LogNorm, Normalize, TwoSlopeNorm
 
 ARTERY_ORDER = [
     "aortic_root", "thoracic_aorta", "femoral", "carotid", "iliac", "brachial"
@@ -201,7 +201,7 @@ def _controls(controls: pd.DataFrame, root: Path, dpi: int):
     phase = controls[controls["control"].str.startswith("phase_random_")]
     groups = [100 * (phase[phase["artery_id"] == item]["relative_to_native"] - 1)
               for item in ARTERY_ORDER]
-    axes[2].boxplot(groups, labels=names, showfliers=False)
+    axes[2].boxplot(groups, tick_labels=names, showfliers=False)
     axes[2].axhline(0, color="0.25", linewidth=0.8)
     axes[2].tick_params(axis="x", rotation=38)
     axes[2].set_ylabel("Random-phase change (%)")
@@ -263,8 +263,11 @@ def _reduction(predictions: pd.DataFrame, summary: dict, archive, root: Path, dp
 
     errors = [100 * predictions[predictions["family"] == item]["relative_error"]
               for item in families]
-    axes[0, 1].boxplot(errors, labels=[item.replace("_", " ") for item in families],
-                       showfliers=False)
+    axes[0, 1].boxplot(
+        errors,
+        tick_labels=[item.replace("_", " ") for item in families],
+        showfliers=False,
+    )
     axes[0, 1].tick_params(axis="x", rotation=38)
     axes[0, 1].set_ylabel("Relative prediction error (%)")
     _clean(axes[0, 1], True)
