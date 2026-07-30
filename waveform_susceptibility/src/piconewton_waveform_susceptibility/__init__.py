@@ -22,7 +22,7 @@ from .core import (
 from .figures import create_figures
 from .public_analysis import build_operator_samples, reduced_law_validation, run_analysis
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 __all__ = [
     "AnalysisConfig",

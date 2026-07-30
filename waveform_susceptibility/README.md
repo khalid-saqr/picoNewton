@@ -10,7 +10,7 @@ for the Scientific Reports successor to:
 The package derives the reciprocal weak-anisotropy hierarchy, constructs the
 exact two-sided harmonic-interaction kernel, evaluates dimensionless waveform
 susceptibility, separates vessel and waveform effects, fits the phase-aware
-rank-one reduction, evaluates prescribed force benchmarks, and tests selected
+rank-one reduction, evaluates prescribed force references, and tests selected
 constitutive perturbations.
 
 ## Scientific scope
@@ -42,11 +42,16 @@ python -m pip install -e "./picoNewton_v3"
 python -m pip install -e "./waveform_susceptibility[dev]"
 ```
 
+The package metadata declares `piconewton-v3>=0.1.0` as a runtime dependency.
+The sibling installation command above ensures that the repository version is
+used.
+
 ## Run the complete analysis
 
 ```bash
 piconewton-waveform-susceptibility \
-  --output ./waveform_susceptibility_outputs
+  --output ./waveform_susceptibility_outputs \
+  --figure-dpi 600
 ```
 
 The command writes:
@@ -58,7 +63,26 @@ The command writes:
 - leave-one-artery-out rank-one validation;
 - selected constitutive robustness results;
 - the reusable operator archive;
-- six manuscript-facing figures in PNG and PDF.
+- six full-width, multi-panel figures in PDF, SVG, and 600 dpi PNG;
+- a machine-readable figure manifest with common dimensions and typography.
+
+## Publication figure standard
+
+All six figures use one shared visual system:
+
+- 180 mm two-column width and height no greater than 170 mm;
+- 7 pt Arial/Helvetica-compatible sans-serif lettering;
+- 8 pt bold lower-case panel labels;
+- one-point minimum line width;
+- white background and no decorative three-dimensional effects;
+- `cividis` for sequential quantities and `RdBu_r` for centred departures;
+- shared normalisation wherever panels are directly comparable;
+- explicit dimensionless, pN, percent, or anisotropy units;
+- vector PDF and SVG output plus 600 dpi PNG output.
+
+These choices follow the current Scientific Reports and Nature Portfolio figure
+recommendations for consistent type, legibility after reduction, panel
+lettering, white backgrounds, line weight, and vector line art.
 
 ## Google Colab
 
@@ -68,9 +92,19 @@ Open:
 notebooks/waveform_susceptibility_colab.ipynb
 ```
 
-The notebook mounts Google Drive, installs the repository packages, executes
-the complete analysis, and stores all tables, arrays, figures, and the analysis
-summary in a unique Drive directory.
+The notebook:
+
+1. mounts Google Drive;
+2. creates a unique timestamp-and-UUID run directory;
+3. clones the repository and records the exact commit;
+4. installs the parent model and public susceptibility package;
+5. executes the complete publication-resolution analysis;
+6. verifies all required tables, arrays, and figure files;
+7. writes runtime metadata and SHA-256 checksums;
+8. creates a portable ZIP archive and displays the six figures.
+
+By default the notebook uses `main`. Set the Colab environment variable
+`PICONEWTON_REF` to a branch, tag, or commit when reproducing another revision.
 
 ## Python API
 
@@ -87,5 +121,5 @@ result = run_analysis(
 
 ```bash
 pytest waveform_susceptibility/tests
-ruff check waveform_susceptibility
+ruff check waveform_susceptibility/src waveform_susceptibility/tests
 ```

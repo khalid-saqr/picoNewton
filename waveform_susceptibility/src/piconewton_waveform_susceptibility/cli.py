@@ -18,7 +18,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--time-points", type=int, default=2048)
     parser.add_argument("--quadrature-nodes", type=int, default=256)
     parser.add_argument("--validation-epsilon", type=float, default=0.08)
-    parser.add_argument("--figure-dpi", type=int, default=300)
+    parser.add_argument("--figure-dpi", type=int, default=600)
     return parser.parse_args(argv)
 
 

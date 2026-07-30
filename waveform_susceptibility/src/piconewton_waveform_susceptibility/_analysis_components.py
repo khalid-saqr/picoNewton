@@ -1,25 +1,18 @@
 from __future__ import annotations
 
-from dataclasses import asdict
-import json
-from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 import numpy as np
 import pandas as pd
 from piconewton_v3 import V2_ARTERY_CASES
-from scipy.stats import spearmanr
 
 from .core import (
     AnalysisConfig,
-    alpha_for_case,
     canonical_coefficients,
     combine_unordered_pairs,
     critical_anisotropy,
-    eta_for_case,
     evaluate_kernel,
     exact_excess_kernel,
-    force_scale,
     near_wall_basis,
     relative_l2,
     rms,
@@ -39,18 +32,18 @@ def _case_by_id(identifier: str) -> Any:
 
 
 def input_rms(coefficients: Sequence[complex]) -> float:
-    coefficients = np.asarray(coefficients, dtype=complex)
-    return float(np.sqrt(0.5 * np.sum(np.abs(coefficients) ** 2)))
+    values = np.asarray(coefficients, dtype=complex)
+    return float(np.sqrt(0.5 * np.sum(np.abs(values) ** 2)))
 
 
 def normalise_input_rms(
     coefficients: Sequence[complex], target_rms: float
 ) -> np.ndarray:
-    coefficients = np.asarray(coefficients, dtype=complex)
-    current = input_rms(coefficients)
+    values = np.asarray(coefficients, dtype=complex)
+    current = input_rms(values)
     if current <= 0.0:
         raise ValueError("cannot normalise a zero waveform")
-    return coefficients * (target_rms / current)
+    return values * (target_rms / current)
 
 
 def waveform_catalogue(random_seed: int = 20260730) -> list[dict[str, Any]]:
@@ -65,10 +58,10 @@ def waveform_catalogue(random_seed: int = 20260730) -> list[dict[str, Any]]:
             }
         )
 
-    target = 1.0
+    target_rms = 1.0
     for harmonic in range(1, 7):
         coefficients = np.zeros(6, dtype=complex)
-        coefficients[harmonic - 1] = np.sqrt(2.0) * target
+        coefficients[harmonic - 1] = np.sqrt(2.0) * target_rms
         catalogue.append(
             {
                 "waveform_id": f"single_h{harmonic}",
@@ -82,33 +75,32 @@ def waveform_catalogue(random_seed: int = 20260730) -> list[dict[str, Any]]:
         for second in range(first + 1, 7):
             coefficients = np.zeros(6, dtype=complex)
             coefficients[[first - 1, second - 1]] = 1.0
-            coefficients = normalise_input_rms(coefficients, target)
             catalogue.append(
                 {
                     "waveform_id": f"two_h{first}_h{second}",
                     "family": "two_tone",
                     "source_artery": None,
-                    "coefficients": coefficients,
+                    "coefficients": normalise_input_rms(coefficients, target_rms),
                 }
             )
 
     for harmonics in ((1, 2, 3), (1, 3, 5), (2, 4, 6)):
         coefficients = np.zeros(6, dtype=complex)
         coefficients[np.asarray(harmonics) - 1] = 1.0
-        coefficients = normalise_input_rms(coefficients, target)
         catalogue.append(
             {
                 "waveform_id": "three_" + "_".join(map(str, harmonics)),
                 "family": "sparse_three_tone",
                 "source_artery": None,
-                "coefficients": coefficients,
+                "coefficients": normalise_input_rms(coefficients, target_rms),
             }
         )
 
     harmonic_numbers = np.arange(1, 7, dtype=float)
     for exponent in np.linspace(0.0, 2.0, 5):
-        coefficients = harmonic_numbers ** (-exponent)
-        coefficients = normalise_input_rms(coefficients, target)
+        coefficients = normalise_input_rms(
+            harmonic_numbers ** (-exponent), target_rms
+        )
         catalogue.append(
             {
                 "waveform_id": f"slope_{exponent:.2f}",
@@ -134,40 +126,6 @@ def waveform_catalogue(random_seed: int = 20260730) -> list[dict[str, Any]]:
     return catalogue
 
 
-def build_operator_samples(
-    config: AnalysisConfig = AnalysisConfig(),
-) -> tuple[list[dict[str, Any]], dict[str, np.ndarray]]:
-    config.validate()
-    native_eta = np.asarray([eta_for_case(case) for case in V2_ARTERY_CASES])
-    reference_eta = float(np.median(native_eta))
-    records: list[dict[str, Any]] = []
-    arrays: dict[str, np.ndarray] = {}
-    for case in V2_ARTERY_CASES:
-        unit = unit_perturbation_response(case, config)
-        for condition, eta in (
-            ("reference", reference_eta),
-            ("physiological", eta_for_case(case)),
-        ):
-            near_wall = near_wall_basis(case, unit, config, eta)
-            frequencies, kernel = second_order_kernel(case, near_wall)
-            records.append(
-                {
-                    "condition": condition,
-                    "artery_id": case.artery_id,
-                    "artery_name": case.name,
-                    "alpha": alpha_for_case(case),
-                    "eta": eta,
-                    "frequencies": frequencies,
-                    "kernel": kernel,
-                    "kernel_norm": float(np.linalg.norm(kernel)),
-                    "maximum_residual": unit.maximum_residual,
-                }
-            )
-            arrays[f"{condition}__{case.artery_id}__frequencies"] = frequencies
-            arrays[f"{condition}__{case.artery_id}__kernel"] = kernel
-    return records, arrays
-
-
 def native_atlas(
     records: Sequence[dict[str, Any]],
     config: AnalysisConfig = AnalysisConfig(),
@@ -184,8 +142,8 @@ def native_atlas(
             case.harmonic_coefficients,
             config,
         )
-        coefficient_rms_n = rms(result.waveform)
-        coefficient_peak_n = float(np.max(np.abs(result.waveform)))
+        coefficient_rms = rms(result.waveform)
+        coefficient_peak = float(np.max(np.abs(result.waveform)))
         rows.append(
             {
                 "artery_id": case.artery_id,
@@ -196,16 +154,14 @@ def native_atlas(
                 "phi_peak_absolute": result.peak_absolute,
                 "outward_duty": result.outward_duty,
                 "inward_duty": result.inward_duty,
-                "force_coefficient_rms_n_per_epsilon2": coefficient_rms_n,
-                "force_coefficient_peak_n_per_epsilon2": coefficient_peak_n,
-                "predicted_rms_at_epsilon_0p08_pn": (
-                    coefficient_rms_n * 0.08**2 * 1e12
-                ),
+                "force_coefficient_rms_n_per_epsilon2": coefficient_rms,
+                "force_coefficient_peak_n_per_epsilon2": coefficient_peak,
+                "predicted_rms_at_epsilon_0p08_pn": coefficient_rms * 0.08**2 * 1e12,
                 "critical_epsilon_1pn_rms": critical_anisotropy(
-                    1e-12, coefficient_rms_n
+                    1e-12, coefficient_rms
                 ),
                 "critical_epsilon_10pn_rms": critical_anisotropy(
-                    10e-12, coefficient_rms_n
+                    10e-12, coefficient_rms
                 ),
             }
         )
@@ -272,9 +228,7 @@ def waveform_controls(
         for harmonic in range(6):
             removed = native.copy()
             removed[harmonic] = 0.0
-            controls.append(
-                (f"remove_h{harmonic + 1}", "harmonic_removal", removed)
-            )
+            controls.append((f"remove_h{harmonic + 1}", "harmonic_removal", removed))
             controls.append(
                 (
                     f"remove_h{harmonic + 1}_rms_matched",
@@ -315,9 +269,7 @@ def waveform_controls(
     return pd.DataFrame(rows)
 
 
-def harmonic_pair_attribution(
-    records: Sequence[dict[str, Any]],
-) -> pd.DataFrame:
+def harmonic_pair_attribution(records: Sequence[dict[str, Any]]) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     for record in records:
         if record["condition"] != "physiological":
@@ -327,10 +279,12 @@ def harmonic_pair_attribution(
         output_frequencies, spectrum, ordered = evaluate_kernel(
             frequencies, record["kernel"], coefficients
         )
-        output_lookup = {int(q): value for q, value in zip(output_frequencies, spectrum)}
-        pairs = combine_unordered_pairs(frequencies, ordered)
+        output_lookup = {
+            int(q): value
+            for q, value in zip(output_frequencies, spectrum, strict=True)
+        }
         by_output: dict[int, list[dict[str, Any]]] = {}
-        for pair in pairs:
+        for pair in combine_unordered_pairs(frequencies, ordered):
             by_output.setdefault(int(pair["q"]), []).append(pair)
         for output, candidates in by_output.items():
             if output < 0:
@@ -373,18 +327,9 @@ def _fit_scale(records: Sequence[dict[str, Any]]) -> np.ndarray:
     return np.linalg.lstsq(design, response, rcond=None)[0]
 
 
-def _predict_scale(parameters: Sequence[float], alpha: float, eta: float) -> float:
+def _predict_scale(parameters: Sequence[float, alpha: float, eta: float) -> float:
     log_prefactor, alpha_exponent, eta_exponent = np.asarray(parameters, dtype=float)
     return float(np.exp(log_prefactor) * alpha**alpha_exponent * eta**eta_exponent)
-
-
-def _normalised_mean_kernel(records: Iterable[dict[str, Any]]) -> np.ndarray:
-    kernels = [
-        record["kernel"] / max(record["kernel_norm"], _EPS) for record in records
-    ]
-    if not kernels:
-        raise ValueError("at least one operator sample is required")
-    return np.mean(np.stack(kernels), axis=0)
 
 
 def _rank_one(kernel: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]:
@@ -392,93 +337,6 @@ def _rank_one(kernel: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]:
     reduced = singular_values[0] * np.outer(left[:, 0], right[0, :])
     retained = float(singular_values[0] ** 2 / np.sum(singular_values**2))
     return reduced, singular_values, retained
-
-
-def reduced_law_validation(
-    records: Sequence[dict[str, Any]],
-    config: AnalysisConfig = AnalysisConfig(),
-    catalogue: Sequence[dict[str, Any]] | None = None,
-) -> tuple[pd.DataFrame, dict[str, Any], dict[str, np.ndarray]]:
-    catalogue = waveform_catalogue() if catalogue is None else list(catalogue)
-    predictions: list[dict[str, Any]] = []
-    exponent_rows: list[dict[str, Any]] = []
-    artery_ids = [case.artery_id for case in V2_ARTERY_CASES]
-    for held_out in artery_ids:
-        training = [record for record in records if record["artery_id"] != held_out]
-        testing = [record for record in records if record["artery_id"] == held_out]
-        parameters = _fit_scale(training)
-        universal = _normalised_mean_kernel(training)
-        reduced, _singular_values, retained = _rank_one(universal)
-        exponent_rows.append(
-            {
-                "held_out_artery": held_out,
-                "prefactor": float(np.exp(parameters[0])),
-                "alpha_exponent": float(parameters[1]),
-                "eta_exponent": float(parameters[2]),
-                "retained_energy": retained,
-            }
-        )
-        for record in testing:
-            scale = _predict_scale(parameters, record["alpha"], record["eta"])
-            case = _case_by_id(record["artery_id"])
-            for waveform in catalogue:
-                exact = susceptibility_from_kernel(
-                    case,
-                    record["frequencies"],
-                    record["kernel"],
-                    waveform["coefficients"],
-                    config,
-                ).rms
-                predicted = susceptibility_from_kernel(
-                    case,
-                    record["frequencies"],
-                    scale * reduced,
-                    waveform["coefficients"],
-                    config,
-                ).rms
-                predictions.append(
-                    {
-                        "held_out_artery": held_out,
-                        "condition": record["condition"],
-                        "waveform_id": waveform["waveform_id"],
-                        "family": waveform["family"],
-                        "exact_phi_rms": exact,
-                        "predicted_phi_rms": predicted,
-                        "relative_error": abs(predicted - exact) / max(exact, _EPS),
-                        "retained_energy": retained,
-                    }
-                )
-
-    full_parameters = _fit_scale(records)
-    full_universal = _normalised_mean_kernel(records)
-    full_reduced, singular_values, retained = _rank_one(full_universal)
-    prediction_frame = pd.DataFrame(predictions)
-    native = prediction_frame[prediction_frame["family"] == "native"]
-    correlations = []
-    for held_out, group in native.groupby("held_out_artery"):
-        correlations.append(
-            float(
-                spearmanr(group["exact_phi_rms"], group["predicted_phi_rms"]).statistic
-            )
-        )
-    law = {
-        "prefactor": float(np.exp(full_parameters[0])),
-        "alpha_exponent": float(full_parameters[1]),
-        "eta_exponent": float(full_parameters[2]),
-        "retained_energy": retained,
-        "median_relative_error": float(prediction_frame["relative_error"].median()),
-        "p90_relative_error": float(prediction_frame["relative_error"].quantile(0.90)),
-        "maximum_relative_error": float(prediction_frame["relative_error"].max()),
-        "minimum_native_spearman": float(min(correlations)),
-        "leave_one_out_exponents": exponent_rows,
-    }
-    arrays = {
-        "universal_kernel": full_universal,
-        "rank_one_kernel": full_reduced,
-        "singular_values": singular_values,
-        "scale_parameters": full_parameters,
-    }
-    return prediction_frame, law, arrays
 
 
 def constitutive_robustness(
@@ -501,9 +359,9 @@ def constitutive_robustness(
         perturbation = near_wall_basis(
             case, unit_perturbation_response(case, config), config
         )
-        frequencies, reciprocal_second_order = second_order_kernel(case, perturbation)
-        reciprocal_norm = np.linalg.norm(reciprocal_second_order)
-        reciprocal_shape = reciprocal_second_order / max(reciprocal_norm, _EPS)
+        frequencies, reciprocal_kernel = second_order_kernel(case, perturbation)
+        reciprocal_norm = np.linalg.norm(reciprocal_kernel)
+        reciprocal_shape = reciprocal_kernel / max(reciprocal_norm, _EPS)
         for name, beta_factor, gamma_factor, delta in paths:
             exact_frequencies, exact_kernel, residual = exact_excess_kernel(
                 case,
@@ -531,71 +389,12 @@ def constitutive_robustness(
                     "relative_amplitude_to_reciprocal": float(
                         scaled_norm / max(reciprocal_norm, _EPS)
                     ),
-                    "normalised_shape_relative_l2": 0.0
-                    if null_control and scaled_norm <= 1e-20
-                    else relative_l2(shape, reciprocal_shape),
+                    "normalised_shape_relative_l2": (
+                        0.0
+                        if null_control and scaled_norm <= 1e-20
+                        else relative_l2(shape, reciprocal_shape)
+                    ),
                     "maximum_residual": residual,
                 }
             )
     return pd.DataFrame(rows)
-
-
-def run_analysis(
-    output_root: str | Path,
-    config: AnalysisConfig = AnalysisConfig(),
-) -> dict[str, Any]:
-    """Execute the complete public analysis and write reusable result files."""
-
-    config.validate()
-    output_root = Path(output_root).resolve()
-    output_root.mkdir(parents=True, exist_ok=True)
-
-    records, operator_arrays = build_operator_samples(config)
-    atlas = native_atlas(records, config)
-    crossed = crossed_matrices(records, config)
-    controls = waveform_controls(records, config)
-    pairs = harmonic_pair_attribution(records)
-    predictions, law, reduction_arrays = reduced_law_validation(records, config)
-    robustness = constitutive_robustness(config)
-
-    tables = {
-        "artery_atlas.csv": atlas,
-        "crossed_susceptibility.csv": crossed,
-        "waveform_controls.csv": controls,
-        "harmonic_pair_attribution.csv": pairs,
-        "reduced_law_validation.csv": predictions,
-        "constitutive_robustness.csv": robustness,
-    }
-    for name, frame in tables.items():
-        frame.to_csv(output_root / name, index=False)
-
-    np.savez_compressed(
-        output_root / "operator_archive.npz", **operator_arrays, **reduction_arrays
-    )
-    summary = {
-        "software": "piconewton-waveform-susceptibility",
-        "configuration": asdict(config),
-        "arteries": int(atlas["artery_id"].nunique()),
-        "crossed_entries": int(len(crossed)),
-        "reduced_law": law,
-        "scientific_scope": (
-            "straight rigid axisymmetric six-harmonic anisotropic Womersley model"
-        ),
-        "claim_boundary": (
-            "the reciprocal amplitude prefactor applies to beta=gamma and delta=1; "
-            "other tensors require a separate constitutive amplitude factor"
-        ),
-    }
-    (output_root / "analysis_summary.json").write_text(
-        json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8"
-    )
-    return {
-        "output_root": str(output_root),
-        "atlas": atlas,
-        "crossed": crossed,
-        "controls": controls,
-        "pairs": pairs,
-        "predictions": predictions,
-        "robustness": robustness,
-        "summary": summary,
-    }
