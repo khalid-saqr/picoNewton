@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "piconewton-waveform-susceptibility"
+version = "1.0.1"
+description = "Waveform susceptibility in anisotropic Womersley flow"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Khalid M. Saqr"}]
+dependencies = [
+  "piconewton-v3>=0.1.0",
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "pandas>=2.0",
+  "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+piconewton-waveform-susceptibility = "piconewton_waveform_susceptibility.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/piconewton_waveform_susceptibility/core.py" = ["B008", "I001"]
+"src/piconewton_waveform_susceptibility/_waveforms.py" = ["B008"]
+"src/piconewton_waveform_susceptibility/_reduction_robustness.py" = ["B008"]
+"src/piconewton_waveform_susceptibility/public_analysis.py" = ["I001"]
+"src/piconewton_waveform_susceptibility/figures.py" = ["I001"]
+"tests/test_notebook.py" = ["I001"]
