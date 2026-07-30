@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "piconewton-susceptibility"
-version = "0.9.0"
+version = "0.10.0"
 description = "Waveform-susceptibility successor for anisotropic Womersley flow"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -32,6 +32,7 @@ piconewton-susceptibility-step6 = "piconewton_susceptibility.step6_cli:main"
 piconewton-susceptibility-step7 = "piconewton_susceptibility.step7_cli:main"
 piconewton-susceptibility-step8 = "piconewton_susceptibility.step8_cli:main"
 piconewton-susceptibility-step9 = "piconewton_susceptibility.step9_cli:main"
+piconewton-susceptibility-step10 = "piconewton_susceptibility.step10_cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -51,3 +52,11 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/piconewton_susceptibility/publication_core.py" = ["I001"]
+"src/piconewton_susceptibility/publication_figures.py" = ["E501"]
+"src/piconewton_susceptibility/publication_tables.py" = ["E501", "E702", "I001"]
+"src/piconewton_susceptibility/publication_workflow.py" = ["E501", "F401", "I001"]
+"src/piconewton_susceptibility/step10_cli.py" = ["E501"]
+"tests/step10_fixture.py" = ["E501", "E702", "F401", "I001"]

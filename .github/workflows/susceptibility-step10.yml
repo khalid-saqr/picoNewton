@@ -1,0 +1,72 @@
+name: susceptibility-step10
+
+on:
+  push:
+    branches:
+      - successor/scirep-waveform-susceptibility
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step10.yml"
+  pull_request:
+    paths:
+      - "piconewton_susceptibility/**"
+      - ".github/workflows/susceptibility-step10.yml"
+  workflow_dispatch:
+
+jobs:
+  cold-publication-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e "./picoNewton_v3"
+          python -m pip install -e "./piconewton_susceptibility[dev]"
+      - name: Static and focused Step 10 tests
+        run: |
+          ruff check piconewton_susceptibility
+          python -m compileall -q piconewton_susceptibility/src piconewton_susceptibility/tests
+          pytest piconewton_susceptibility/tests/test_step10_core.py \
+                 piconewton_susceptibility/tests/test_step10_workflow_fixture.py \
+                 piconewton_susceptibility/tests/test_step10_notebook.py \
+                 piconewton_susceptibility/tests/test_step10_scope.py
+      - name: Cold execute Steps 2–10
+        run: |
+          ROOT="$PWD/piconewton_susceptibility_outputs"
+          piconewton-susceptibility-bootstrap --repo-root . --storage local --local-root "$ROOT"
+          piconewton-susceptibility-step3 --step2-root "$ROOT/bootstrap/step2" --output "$ROOT/step3_parent_continuity" --profile publication
+          piconewton-susceptibility-step4 --step3-root "$ROOT/step3_parent_continuity" --output "$ROOT/step4_perturbation" --profile publication
+          piconewton-susceptibility-step5 --step4-root "$ROOT/step4_perturbation" --output "$ROOT/step5_harmonic_kernel" --profile publication
+          piconewton-susceptibility-step6 --step5-root "$ROOT/step5_harmonic_kernel" --step4-root "$ROOT/step4_perturbation" --output "$ROOT/step6_susceptibility" --profile publication
+          piconewton-susceptibility-step7 --step6-root "$ROOT/step6_susceptibility" --output "$ROOT/step7_waveform_experiments" --profile publication
+          piconewton-susceptibility-step8 --step7-root "$ROOT/step7_waveform_experiments" --output "$ROOT/step8_reduced_law" --profile publication
+          piconewton-susceptibility-step9 --step8-root "$ROOT/step8_reduced_law" --output "$ROOT/step9_robustness_claim_lock" --profile publication
+          piconewton-susceptibility-step10 --workflow-root "$ROOT" --repo-root . --output "$ROOT/step10_publication_archive" --profile publication
+          cd "$ROOT/step10_publication_archive"
+          sha256sum --check publication_archive.sha256
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path('step10_manifest.json').read_text())
+          assert manifest['workflow_complete'] is True
+          assert manifest['gates']['passed'] is True
+          assert len(list(Path('figures/main').glob('*.png'))) == 6
+          PY
+      - name: Upload final publication archive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: step10-publication-py${{ matrix.python-version }}
+          path: piconewton_susceptibility_outputs/step10_publication_archive/
+          if-no-files-found: error
