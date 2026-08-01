@@ -64,6 +64,14 @@ def _write_fixture(root: Path) -> None:
                     "relative_to_native": 1.01,
                     "fractional_change": 0.01,
                 },
+                {
+                    "artery_id": artery,
+                    "artery_name": names[artery],
+                    "control": "common_phase_pi_over_4",
+                    "family": "phase",
+                    "relative_to_native": 1.08,
+                    "fractional_change": 0.08,
+                },
             ]
         )
         for harmonic in range(1, 7):
@@ -94,8 +102,9 @@ def _write_fixture(root: Path) -> None:
 
     pairs = []
     for artery in ARTERY_ORDER:
-        for output in (0, 1, 2):
+        for output in range(13):
             for rank, pair in enumerate(((1, 1), (-1, 2), (2, 2)), start=1):
+                contribution = float(4 - rank)
                 pairs.append(
                     {
                         "artery_id": artery,
@@ -104,7 +113,11 @@ def _write_fixture(root: Path) -> None:
                         "rank": rank,
                         "m": pair[0],
                         "n": pair[1],
+                        "contribution_real_n": contribution,
+                        "contribution_imag_n": 0.0,
+                        "contribution_absolute_n": contribution,
                         "fraction_of_absolute_pair_sum": (4 - rank) / 6.0,
+                        "output_absolute_n": 6.0 / (output + 1),
                     }
                 )
     pd.DataFrame(pairs).to_csv(root / "harmonic_pair_attribution.csv", index=False)
@@ -143,18 +156,22 @@ def _write_fixture(root: Path) -> None:
         "beta_low_gamma_high",
         "delta_low",
         "delta_high",
+        "beta_only",
     ]
     robustness = []
     for artery in ARTERY_ORDER:
         for index, path in enumerate(paths):
+            null_control = path == "beta_only"
             robustness.append(
                 {
                     "artery_id": artery,
                     "artery_name": names[artery],
                     "constitutive_path": path,
-                    "null_control": False,
-                    "normalised_shape_relative_l2": 0.01 * index,
-                    "relative_amplitude_to_reciprocal": 1.0 + 0.05 * (index - 3),
+                    "null_control": null_control,
+                    "normalised_shape_relative_l2": 0.0 if null_control else 0.01 * index,
+                    "relative_amplitude_to_reciprocal": (
+                        0.0 if null_control else 1.0 + 0.05 * (index - 3)
+                    ),
                     "maximum_residual": 1e-14 * (index + 1),
                 }
             )
@@ -169,10 +186,20 @@ def _write_fixture(root: Path) -> None:
         for index, artery in enumerate(ARTERY_ORDER)
     ]
     (root / "analysis_summary.json").write_text(
-        json.dumps({"reduced_law": {"leave_one_out_exponents": folds}}),
+        json.dumps(
+            {
+                "reduced_law": {
+                    "leave_one_out_exponents": folds,
+                    "retained_energy": 0.999986,
+                    "median_relative_error": 0.0223,
+                    "p90_relative_error": 0.1019,
+                    "maximum_relative_error": 0.1630,
+                }
+            }
+        ),
         encoding="utf-8",
     )
-    np.savez(root / "operator_archive.npz", singular_values=np.geomspace(1.0, 1e-6, 12))
+    np.savez(root / "operator_archive.npz", singular_values=np.geomspace(1.0, 1e-24, 13))
 
 
 def test_publication_figure_suite(tmp_path, monkeypatch):
@@ -180,13 +207,31 @@ def test_publication_figure_suite(tmp_path, monkeypatch):
     _write_fixture(tmp_path)
     created = create_figures(tmp_path, dpi=300)
     assert len(created) == 18
-    manifest = json.loads(
-        (tmp_path / "figures/figure_manifest.json").read_text(encoding="utf-8")
-    )
+    manifest = json.loads((tmp_path / "figures/figure_manifest.json").read_text(encoding="utf-8"))
     assert manifest["figure_count"] == 6
+    assert manifest["main_figure_count"] == 5
+    assert manifest["supplementary_figure_count"] == 1
     assert manifest["common_width_mm"] == 180.0
     assert manifest["maximum_height_mm"] <= 170.0
     assert manifest["font_size_pt"] == 7.0
     assert manifest["minimum_line_width_pt"] >= 1.0
+    assert [item["figure"] for item in manifest["figures"]] == [
+        "Figure 1",
+        "Figure 2",
+        "Figure 3",
+        "Figure 4",
+        "Figure 5",
+        "Figure S1",
+    ]
     for extension in ("pdf", "svg", "png"):
-        assert len(list((tmp_path / "figures").glob(f"figure_[1-6]_*.{extension}"))) == 6
+        expected = [
+            f"Figure1.{extension}",
+            f"Figure2.{extension}",
+            f"Figure3.{extension}",
+            f"Figure4.{extension}",
+            f"Figure5.{extension}",
+            f"FigureS1.{extension}",
+        ]
+        assert (
+            sorted(path.name for path in (tmp_path / "figures").glob(f"*.{extension}")) == expected
+        )

@@ -4,7 +4,9 @@
 
 ## Anisotropic Womersley flow, endothelial-scale Lamb forcing, and mechanosensory observability
 
-**Published computational artifacts and a reproducible research extension for studying transverse inertial structure in pulsatile arterial flow.**
+**Published computational artifacts and reproducible research software for
+transverse inertial structure and harmonic interaction in pulsatile arterial
+flow.**
 
 [![Scientific Reports](https://img.shields.io/badge/Scientific%20Reports-10.1038%2Fs41598--026--47474--x-1f4e79?style=for-the-badge)](https://doi.org/10.1038/s41598-026-47474-x)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](picoNewton_v3/pyproject.toml)
@@ -43,6 +45,7 @@
 - [picoNewton v3 extension](#piconewton-v3-extension)
 - [Repository structure](#repository-structure)
 - [Reproducing the published work](#reproducing-the-published-work)
+- [Reproducing the harmonic-interaction manuscript](#reproducing-the-harmonic-interaction-manuscript)
 - [Running picoNewton v3](#running-piconewton-v3)
 - [Validation and provenance](#validation-and-provenance)
 - [Citation](#citation)
@@ -129,6 +132,15 @@ The v3 workflow introduces:
 - physiological Sobol coverage;
 - held-out WSS-surrogate testing;
 - deterministic manifests, checkpoints, checksums, and dataset export.
+
+### Stage IV — harmonic-interaction susceptibility
+
+[`waveform_susceptibility/`](waveform_susceptibility/) is the version 1.0.1
+reproducibility source for *Harmonic interactions shape anisotropy-induced
+transverse force in arterial blood flow*. It produces the manuscript's five
+main figures, Supplementary Figure S1, six result tables, the reusable
+interaction-operator archive, and the exact headline statistics reported in
+the paper.
 
 ---
 
@@ -323,19 +335,26 @@ picoNewton/
 ├── picoNewton_v1.ipynb
 ├── picoNewton_v1.py
 ├── picoNewton_v2.ipynb
-└── picoNewton_v3/
+├── picoNewton_v3/
+│   ├── README.md
+│   ├── CITATION.cff
+│   ├── configs/
+│   ├── data/
+│   ├── docs/
+│   ├── notebooks/
+│   ├── references/
+│   ├── src/piconewton_v3/
+│   ├── tests/
+│   ├── pyproject.toml
+│   ├── requirements.txt
+│   └── run_workflow.py
+└── waveform_susceptibility/
     ├── README.md
-    ├── CITATION.cff
-    ├── configs/
-    ├── data/
-    ├── docs/
     ├── notebooks/
-    ├── references/
-    ├── src/piconewton_v3/
+    ├── src/piconewton_waveform_susceptibility/
     ├── tests/
     ├── pyproject.toml
-    ├── requirements.txt
-    └── run_workflow.py
+    └── requirements.txt
 ```
 
 ### Which artifact should I use?
@@ -351,6 +370,7 @@ picoNewton/
 | Understand the full v3 formulation | [`picoNewton_v3/README.md`](picoNewton_v3/README.md) |
 | Inspect units, sources and data contracts | [`picoNewton_v3/data/`](picoNewton_v3/data/) |
 | Inspect verification and tests | [`picoNewton_v3/tests/`](picoNewton_v3/tests/) |
+| Reproduce the harmonic-interaction manuscript | [`waveform_susceptibility/`](waveform_susceptibility/) |
 
 ---
 
@@ -389,6 +409,28 @@ tqdm
 
 > [!TIP]
 > Use the original notebooks when the goal is historical reproduction of the published workflow. Use `picoNewton_v3` when the goal is numerical verification, package-level reuse, mechanosensory analysis, physiological coverage, or archive-ready data generation.
+
+---
+
+## Reproducing the harmonic-interaction manuscript
+
+From the repository root:
+
+```bash
+python -m pip install -e "./picoNewton_v3"
+python -m pip install -e "./waveform_susceptibility[dev]"
+piconewton-waveform-susceptibility \
+  --output ./waveform_susceptibility_outputs \
+  --figure-dpi 600
+```
+
+The command uses six harmonics, 150 Chebyshev--Gauss--Lobatto radial nodes,
+2,048 time samples, 256 quadrature nodes, and a validation anisotropy of 0.08.
+It writes manuscript Figures 1--5 and Supplementary Figure S1 using the exact
+paper designations and regenerates all figure-source data.
+
+The executable Colab workflow is
+[`waveform_susceptibility_colab.ipynb`](waveform_susceptibility/notebooks/waveform_susceptibility_colab.ipynb).
 
 ---
 
@@ -528,6 +570,13 @@ picoNewton_v3/CITATION.cff
 ```
 
 When using the mechanosensory extension, cite both the published article and the archived software release or commit used for the analysis.
+
+### Harmonic-interaction manuscript software
+
+Use `piconewton-waveform-susceptibility` version 1.0.1 and cite the exact
+repository commit used for the analysis. The manuscript title is *Harmonic
+interactions shape anisotropy-induced transverse force in arterial blood
+flow*.
 
 ---
 
