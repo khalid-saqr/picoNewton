@@ -80,8 +80,7 @@ def build_operator_samples(
 
 def _normalised_mean_kernel(records: Iterable[dict[str, Any]]) -> np.ndarray:
     kernels = [
-        record["dimensionless_kernel"] / max(record["kernel_norm"], _EPS)
-        for record in records
+        record["dimensionless_kernel"] / max(record["kernel_norm"], _EPS) for record in records
     ]
     if not kernels:
         raise ValueError("at least one operator sample is required")
@@ -205,14 +204,19 @@ def run_analysis(
     for name, frame in tables.items():
         frame.to_csv(output_root / name, index=False)
 
-    np.savez_compressed(
-        output_root / "operator_archive.npz", **operator_arrays, **reduction_arrays
-    )
+    np.savez_compressed(output_root / "operator_archive.npz", **operator_arrays, **reduction_arrays)
     summary = {
         "software": "piconewton-waveform-susceptibility",
+        "software_version": "1.0.1",
+        "manuscript_title": (
+            "Harmonic interactions shape anisotropy-induced transverse force in arterial blood flow"
+        ),
         "configuration": asdict(config),
         "arteries": int(atlas["artery_id"].nunique()),
-        "crossed_entries": int(len(crossed)),
+        "crossed_entries": int(len(crossed[crossed["condition"] == "physiological"])),
+        "operator_samples": int(len(records)),
+        "held_out_predictions": int(len(predictions)),
+        "constitutive_paths": int(robustness["constitutive_path"].nunique()),
         "reduced_law": law,
         "scientific_scope": (
             "straight rigid axisymmetric six-harmonic anisotropic Womersley model"

@@ -1,4 +1,4 @@
-# Waveform susceptibility in anisotropic Womersley flow
+# Harmonic interactions shape anisotropy-induced transverse force in arterial blood flow
 
 This directory contains the public numerical software and Google Colab notebook
 for the Scientific Reports successor to:
@@ -7,11 +7,12 @@ for the Scientific Reports successor to:
 > flow*, Scientific Reports 16, 12584 (2026),
 > DOI `10.1038/s41598-026-47474-x`.
 
-The package derives the reciprocal weak-anisotropy hierarchy, constructs the
-exact two-sided harmonic-interaction kernel, evaluates dimensionless waveform
-susceptibility, separates vessel and waveform effects, fits the phase-aware
-rank-one reduction, evaluates prescribed force references, and tests selected
-constitutive perturbations.
+This directory is the manuscript-associated reproducibility package,
+`piconewton-waveform-susceptibility` version 1.0.1. It derives the reciprocal
+weak-anisotropy hierarchy, constructs the exact two-sided harmonic-interaction
+kernel, evaluates dimensionless waveform susceptibility, separates artery and
+waveform effects, fits the phase-aware rank-one reduction, and tests the nine
+constitutive paths declared in the paper.
 
 ## Scientific scope
 
@@ -57,20 +58,23 @@ piconewton-waveform-susceptibility \
 The command writes:
 
 - the six-artery susceptibility atlas;
-- both crossed vessel-waveform matrices;
+- the native-depth 6 x 6 crossed artery-waveform analysis and the common-depth
+  operator samples used by the reduction;
 - waveform-removal, sign, and phase controls;
 - harmonic-pair attribution;
 - leave-one-artery-out rank-one validation;
-- selected constitutive robustness results;
+- all nine constitutive robustness paths, including the beta-only null control;
 - the reusable operator archive;
-- six full-width, multi-panel figures in PDF, SVG, and 600 dpi PNG;
+- manuscript Figures 1--5 and Supplementary Figure S1 in PDF, SVG, and 600 dpi
+  PNG, using the exact manuscript file stems (`Figure1` through `Figure5` and
+  `FigureS1`);
 - a machine-readable figure manifest with common dimensions and typography.
 
 ## Publication figure standard
 
 All six figures use one shared visual system:
 
-- 180 mm two-column width and height no greater than 170 mm;
+- 180 mm two-column width and height no greater than 112 mm;
 - 7 pt Arial/Helvetica-compatible sans-serif lettering;
 - 8 pt bold lower-case panel labels;
 - one-point minimum line width;
@@ -101,7 +105,7 @@ The notebook:
 5. executes the complete publication-resolution analysis;
 6. verifies all required tables, arrays, and figure files;
 7. writes runtime metadata and SHA-256 checksums;
-8. creates a portable ZIP archive and displays the six figures.
+8. creates a portable ZIP archive and displays Figures 1--5 and Figure S1.
 
 By default the notebook uses `main`. Set the Colab environment variable
 `PICONEWTON_REF` to a branch, tag, or commit when reproducing another revision.
@@ -123,3 +127,7 @@ result = run_analysis(
 pytest waveform_susceptibility/tests
 ruff check waveform_susceptibility/src waveform_susceptibility/tests
 ```
+
+The regression suite checks the manuscript defaults, every headline numerical
+result, the 36 crossed entries, all 1,068 held-out predictions, all nine
+constitutive paths, exact figure designations, and a clean Colab notebook.
